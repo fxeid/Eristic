@@ -1,0 +1,48 @@
+{"text": "He is British, must must be strong.", "expected": "Hasty Generalization", "note": "nationality; user's original failing case; doubled word, no connective"}
+{"text": "She is French, so she must be rude.", "expected": "Hasty Generalization", "note": "nationality; 'so' connective"}
+{"text": "You are Canadian, you must be polite.", "expected": "Hasty Generalization", "note": "nationality; second person; positive trait"}
+{"text": "he is german so he must be humorless", "expected": "Hasty Generalization", "note": "nationality; lowercase, no punctuation"}
+{"text": "All Italians are loud.", "expected": "Hasty Generalization", "note": "nationality; 'all' plural form"}
+{"text": "He is Australian, what else could he be but reckless?", "expected": "Hasty Generalization", "note": "nationality; question form that still asserts"}
+{"text": "Of course she is cold, she is Swedish.", "expected": "Hasty Generalization", "note": "nationality; 'of course' form, trait stated before group"}
+{"text": "Hes Spanish, must never be on time", "expected": "Hasty Generalization", "note": "nationality; typo (missing apostrophe), no connective, no final punctuation"}
+{"text": "The typical American is loud and ignorant.", "expected": "Hasty Generalization", "note": "nationality; 'typical' form"}
+{"text": "Every Dutch person is stingy.", "expected": "Hasty Generalization", "note": "nationality; 'every' form"}
+{"text": "She is a lawyer, so she must be dishonest.", "expected": "Hasty Generalization", "note": "profession; 'so' connective"}
+{"text": "He is a banker, what else could he be but greedy?", "expected": "Hasty Generalization", "note": "profession; question form that still asserts"}
+{"text": "You are an engineer, you must be boring.", "expected": "Hasty Generalization", "note": "profession; second person"}
+{"text": "Of course he is boring, he is an accountant.", "expected": "Hasty Generalization", "note": "reworded per audit: trait not entailed by the job"}
+{"text": "She is a nurse, so she must be kind.", "expected": "Hasty Generalization", "note": "profession; 'so' connective; positive trait"}
+{"text": "he is a used car salesman so he must be a liar", "expected": "Hasty Generalization", "note": "profession; lowercase, no punctuation"}
+{"text": "Politicians are all liars.", "expected": "Hasty Generalization", "note": "profession; plural with 'all'"}
+{"text": "Shes a hairdresser, must be a gossip", "expected": "Hasty Generalization", "note": "profession; typo (missing apostrophe), no connective, no final punctuation"}
+{"text": "He is a programmer, must must be bad with people.", "expected": "Hasty Generalization", "note": "profession; doubled word, no connective"}
+{"text": "The typical surgeon is arrogant.", "expected": "Hasty Generalization", "note": "profession; 'typical' form"}
+{"text": "Teenagers are lazy.", "expected": "Hasty Generalization", "note": "age; bare plural"}
+{"text": "Old people cannot learn new technology.", "expected": "Hasty Generalization", "note": "age; bare plural"}
+{"text": "Shes from Texas, must love trucks", "expected": "Hasty Generalization", "note": "region; typo (missing apostrophe), no connective, no final punctuation"}
+{"text": "He has tattoos, so he must be a criminal.", "expected": "Hasty Generalization", "note": "appearance; 'so' connective"}
+{"text": "She wears glasses, must be a nerd.", "expected": "Hasty Generalization", "note": "appearance; no connective"}
+{"text": "You are from the city, you must be rude.", "expected": "Hasty Generalization", "note": "region; second person"}
+{"text": "Of course she is stuck up, she is from the wealthy side of town.", "expected": "Hasty Generalization", "note": "region; 'of course' form, trait stated before group"}
+{"text": "Every gamer is antisocial.", "expected": "Hasty Generalization", "note": "hobby; 'every' form"}
+{"text": "He is a bodybuilder, what else could he be but dumb?", "expected": "Hasty Generalization", "note": "hobby; question form that still asserts"}
+{"text": "he rides a motorcycle so he must be dangerous", "expected": "Hasty Generalization", "note": "hobby; lowercase, no punctuation"}
+{"text": "She is blonde, must must be ditzy.", "expected": "Hasty Generalization", "note": "appearance; doubled word, no connective"}
+{"text": "He is a grandfather, so he must be wise.", "expected": "Hasty Generalization", "note": "age; 'so' connective; positive trait"}
+{"text": "He lifts weights every day, so he must be strong.", "expected": "None", "note": "Same shape as the failing case but the inference rests on a real individual reason (daily training), not nationality."}
+{"text": "She has practiced law for ten years, so she knows the filing rules.", "expected": "None", "note": "Conclusion about one person from her own ten years of experience; no group stereotype."}
+{"text": "He grew up speaking French at home, so he can help translate the letter.", "expected": "None", "note": "Inference from a specific fact about this individual's upbringing, not from a group label."}
+{"text": "The pilot has logged four thousand hours, so she handles turbulence calmly.", "expected": "None", "note": "Profession is mentioned but the claim is grounded in this pilot's own logged hours."}
+{"text": "He is British and lives in Leeds.", "expected": "None", "note": "Plain description with nationality and no inference drawn from it."}
+{"text": "My neighbour is a retired plumber who keeps bees.", "expected": "None", "note": "Plain description of one person's profession and hobby; nothing is concluded from either."}
+{"text": "The new intern is nineteen and studies chemistry.", "expected": "None", "note": "Plain description mentioning age with no trait inferred."}
+{"text": "The nurse on duty was kind to us.", "expected": "None", "note": "Report of direct experience with one individual; profession named, no generalization."}
+{"text": "The teenager next door mowed our lawn without being asked.", "expected": "None", "note": "Observed action by one specific young person; age is descriptive only."}
+{"text": "The taxi driver knew a faster route and got us there early.", "expected": "None", "note": "Statement about one driver from direct evidence; nothing claimed about drivers in general."}
+{"text": "The shop is closed on Sundays, so we must go Saturday.", "expected": "None", "note": "Reasonable inference from a stated schedule; 'must' signals necessity, not a stereotype."}
+{"text": "The kettle is still warm, so someone made tea recently.", "expected": "None", "note": "Ordinary inference from physical evidence; no person or group is characterised."}
+{"text": "Her flight lands at nine, so she will miss the opening speech.", "expected": "None", "note": "Timetable inference about one person; nothing rests on who she is."}
+{"text": "She is Australian and and teaches piano in Perth.", "expected": "None", "note": "Typo item: doubled 'and' in a plain description with nationality and no inference; typo alone must not trigger a label."}
+{"text": "She runs marathons every yeer, so she must have strong legs.", "expected": "None", "note": "Typo item: misspelled 'year' in a sentence with a real individual reason (marathon training) for the 'must' claim."}
+{"text": "The bakery is is closed on Mondays, so we must go Tuesday.", "expected": "None", "note": "Typo item: doubled 'is' in a reasonable schedule inference; 'must' is necessity, not stereotype."}

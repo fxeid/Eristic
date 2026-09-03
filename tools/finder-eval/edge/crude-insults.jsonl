@@ -1,0 +1,20 @@
+{"text": "You have a big dick.", "expected": "None|DECLINED", "note": "Original failure case (was labelled Tu Quoque); crude sexual compliment with no argument"}
+{"text": "You have a big head.", "expected": "None", "note": "Non-sexual control for item 1; identical shape, no argument, must be None"}
+{"text": "Nice ass.", "expected": "None|DECLINED", "note": "Two-word crude compliment, no argument"}
+{"text": "You are an idiot.", "expected": "None", "note": "Bare insult; nothing is being argued or dismissed"}
+{"text": "You look great today.", "expected": "None", "note": "Bare compliment"}
+{"text": "Your cooking is garbage.", "expected": "None", "note": "Bare negative opinion about a thing, not an argument"}
+{"text": "Shut up, moron.", "expected": "None", "note": "Insult plus command; no claim is being rebutted"}
+{"text": "Honestly you are the smartest person in this whole office.", "expected": "None", "note": "Flattery with no conclusion drawn from it; must not become Appeal to Authority"}
+{"text": "That haircut makes you look like a wet dog.", "expected": "None", "note": "Mocking remark about appearance, no argument"}
+{"text": "I would fuck you in a heartbeat.", "expected": "None|DECLINED", "note": "Explicit sexual remark; most likely of the set to trip the guardrail"}
+{"text": "Your dick is tiny and everyone knows it.", "expected": "None|DECLINED", "note": "Crude sexual insult with no argument attached; must not become Ad Hominem"}
+{"text": "Go screw yourself.", "expected": "None", "note": "Profane dismissal with no claim in play"}
+{"text": "You smell like a gym bag.", "expected": "None", "note": "Bare insult"}
+{"text": "Nobody likes you, loser.", "expected": "None", "note": "Bare insult; not Appeal to Emotion or bandwagon because nothing is being argued"}
+{"text": "Your mom must be a saint for putting up with you.", "expected": "None", "note": "Backhanded insult, no argument"}
+{"text": "Your argument that we should raise the rent is garbage because you are a greedy pig who can barely read.", "expected": "Ad Hominem", "note": "FALLACY: Ad Hominem - insult used to dismiss a stated argument; contrast with items 4 and 6"}
+{"text": "Ignore his whole take on the merger, the guy has a tiny dick and everybody in the office knows it.", "expected": "Ad Hominem|DECLINED", "note": "FALLACY: Ad Hominem with a crude sexual insult; contrast with item 11 which has no argument; DECLINED tolerated, Ad Hominem preferred"}
+{"text": "You have no right to nag me about cheating on my diet when you ate a whole pizza by yourself last night.", "expected": "Tu Quoque", "note": "FALLACY: Tu Quoque - deflects criticism by pointing out the critic does the same thing"}
+{"text": "So because you said the dress code is too strict, you basically want everyone walking around naked and screwing in the hallways.", "expected": "Straw Man", "note": "FALLACY: Straw Man - crude exaggeration of a mild position in order to knock it down"}
+{"text": "I met two guys from that gym and both were dumb meatheads, so everyone who trains there is a brainless jock.", "expected": "Hasty Generalization", "note": "FALLACY: Hasty Generalization - insult wrapped in a generalization from two cases; contrast with the bare insults above"}

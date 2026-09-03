@@ -1,0 +1,20 @@
+instructions chars: 5064 chunk=5 refine=true gate=true ensemble=0
+QUIZ: 48 stems
+  MISS [Hasty Generalization -> DECLINED] All Italians are loud.
+  MISS [Hasty Generalization -> None] She is a nurse, so she must be kind.
+  MISS [Hasty Generalization -> None] Old people cannot learn new technology.
+  MISS [Hasty Generalization -> DECLINED] He is a bodybuilder, what else could he be but dumb?
+  MISS [Hasty Generalization -> Straw Man] he rides a motorcycle so he must be dangerous
+  MISS [None -> False Dilemma] The shop is closed on Sundays, so we must go Saturday.
+  MISS [Hasty Generalization -> Appeal to Authority] You are Canadian, you must be polite.
+
+=== RESULTS ===
+overall: 41/48 = 85%
+none recall: 15/16, false alarms on clean sentences: 1
+  Hasty Generalization: 26/32
+top confusions:
+  2x Hasty Generalization -> DECLINED
+  2x Hasty Generalization -> None
+  1x Hasty Generalization -> Straw Man
+  1x Hasty Generalization -> Appeal to Authority
+  1x None -> False Dilemma

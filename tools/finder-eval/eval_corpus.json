@@ -1,0 +1,656 @@
+[
+ {
+  "paragraph": "P1 - School: The homework proposal",
+  "text": "At the parent meeting last night, the fifth-grade teacher proposed cutting weekly homework from five assignments to three. One father immediately said that she apparently wants to abolish homework altogether and let the kids play video games until midnight. Another parent warned that if we cut homework now, the kids will stop studying entirely, fail their exams, and end up unable to hold a job. The teacher clarified that the three remaining assignments would be longer and focused on reading and math. A mother in the back answered that she would never support a plan to let children do nothing all week and still get good grades. Once you shorten the homework list, she continued, the next request will be to cancel tests, then grades, and before long the whole school will be nothing more than a daycare. The father agreed, saying the real proposal here is to stop teaching math and reading at all and just keep the kids entertained. The principal asked everyone to submit written comments by Friday so the proposal could be reviewed properly.",
+  "expected": [
+   {
+    "n": 1,
+    "starts": "At the parent meeting last night,",
+    "label": "None",
+    "chars": 105
+   },
+   {
+    "n": 2,
+    "starts": "One father immediately said that she",
+    "label": "Straw Man",
+    "chars": 114
+   },
+   {
+    "n": 3,
+    "starts": "Another parent warned that if we",
+    "label": "Slippery Slope",
+    "chars": 114
+   },
+   {
+    "n": 4,
+    "starts": "The teacher clarified that the three",
+    "label": "None",
+    "chars": 91
+   },
+   {
+    "n": 5,
+    "starts": "A mother in the back answered",
+    "label": "Straw Man",
+    "chars": 104
+   },
+   {
+    "n": 6,
+    "starts": "Once you shorten the homework list,",
+    "label": "Slippery Slope",
+    "chars": 145
+   },
+   {
+    "n": 7,
+    "starts": "The father agreed, saying the real",
+    "label": "Straw Man",
+    "chars": 106
+   },
+   {
+    "n": 8,
+    "starts": "The principal asked everyone to submit",
+    "label": "None",
+    "chars": 93
+   }
+  ]
+ },
+ {
+  "paragraph": "P2 - Cooking: Sourdough advice",
+  "text": "I started baking sourdough this spring, and my first three loaves came out dense and flat. My neighbor insists her starter is the best in town because no other starter around here is as good as hers. She also told me that a famous football player she watches on television swears by adding honey to the dough, so that must be the secret to a good rise. I tried a longer proofing time instead, and the fourth loaf finally had an open crumb. My grandmother always said nothing beats fresh bread, and a stale cracker beats nothing, so a stale cracker must beat fresh bread. Next weekend I plan to try a rye blend and keep notes on hydration and oven temperature.",
+  "expected": [
+   {
+    "n": 1,
+    "starts": "I started baking sourdough this spring,",
+    "label": "None",
+    "chars": 75
+   },
+   {
+    "n": 2,
+    "starts": "My neighbor insists her starter is",
+    "label": "Circular Reasoning",
+    "chars": 88
+   },
+   {
+    "n": 3,
+    "starts": "She also told me that a",
+    "label": "Appeal to Authority",
+    "chars": 123
+   },
+   {
+    "n": 4,
+    "starts": "I tried a longer proofing time",
+    "label": "None",
+    "chars": 71
+   },
+   {
+    "n": 5,
+    "starts": "My grandmother always said nothing beats",
+    "label": "Equivocation",
+    "chars": 109
+   },
+   {
+    "n": 6,
+    "starts": "Next weekend I plan to try",
+    "label": "None",
+    "chars": 72
+   }
+  ]
+ },
+ {
+  "paragraph": "P3 - Sports: Sunday soccer practice",
+  "text": "Our Sunday soccer team lost three matches in a row this month, so the captain called a meeting to talk about practice schedules. When Marcus suggested adding a second weekly practice, Dave said nobody should listen to a guy who still lives with his parents. Marcus pointed out that Dave keeps skipping warm-ups, and Dave shot back that Marcus himself was late to a practice last month, so he had no right to talk about attendance. The captain reminded everyone that the league schedule for October comes out next week. Our goalkeeper faced two left-footed strikers this season and now insists that every left-footed player in the league is impossible to read. Before we voted, someone muttered that we should ignore Marcus's plan anyway because he went to the rival high school across town. We agreed to try one extra practice on Wednesday evenings for the rest of the month and see whether the results improve.",
+  "expected": [
+   {
+    "n": 1,
+    "starts": "Our Sunday soccer team lost three",
+    "label": "None",
+    "chars": 106
+   },
+   {
+    "n": 2,
+    "starts": "When Marcus suggested adding a second",
+    "label": "Ad Hominem",
+    "chars": 107
+   },
+   {
+    "n": 3,
+    "starts": "Marcus pointed out that Dave keeps",
+    "label": "Tu Quoque",
+    "chars": 142
+   },
+   {
+    "n": 4,
+    "starts": "The captain reminded everyone that the",
+    "label": "None",
+    "chars": 74
+   },
+   {
+    "n": 5,
+    "starts": "Our goalkeeper faced two left-footed strikers",
+    "label": "Hasty Generalization",
+    "chars": 119
+   },
+   {
+    "n": 6,
+    "starts": "Before we voted, someone muttered that",
+    "label": "Ad Hominem",
+    "chars": 109
+   },
+   {
+    "n": 7,
+    "starts": "We agreed to try one extra",
+    "label": "None",
+    "chars": 99
+   }
+  ]
+ },
+ {
+  "paragraph": "P4 - Pets: The shelter kitten",
+  "text": "My sister has been thinking about adopting a second cat from the shelter downtown. The volunteer told her that if she walked away, the poor little kitten would spend another lonely night in a cold cage, crying for someone to love it. The volunteer added that either you adopt today or you clearly do not care about animals at all. My sister asked about the kitten's vaccination records and whether it had been tested for feline leukemia. The volunteer replied that nobody had ever shown the kitten was sick, so it was obviously perfectly healthy. The adoption fee was sixty dollars and included a small bag of dry food. In the end she filled out the application and scheduled a vet visit for the following Tuesday.",
+  "expected": [
+   {
+    "n": 1,
+    "starts": "My sister has been thinking about",
+    "label": "None",
+    "chars": 69
+   },
+   {
+    "n": 2,
+    "starts": "The volunteer told her that if",
+    "label": "Appeal to Emotion",
+    "chars": 123
+   },
+   {
+    "n": 3,
+    "starts": "The volunteer added that either you",
+    "label": "False Dilemma",
+    "chars": 79
+   },
+   {
+    "n": 4,
+    "starts": "My sister asked about the kitten's",
+    "label": "None",
+    "chars": 90
+   },
+   {
+    "n": 5,
+    "starts": "The volunteer replied that nobody had",
+    "label": "Appeal to Ignorance",
+    "chars": 91
+   },
+   {
+    "n": 6,
+    "starts": "The adoption fee was sixty dollars",
+    "label": "None",
+    "chars": 59
+   },
+   {
+    "n": 7,
+    "starts": "In the end she filled out",
+    "label": "None",
+    "chars": 78
+   }
+  ]
+ },
+ {
+  "paragraph": "P5 - Gadgets: Old phone, new battery",
+  "text": "Last week I asked my coworkers for advice about my four-year-old phone, which has started slowing down. Priya said her hairdresser told her the newest model has the best chip ever made, so replacing it was obviously the right move. When I asked whether a new battery would actually fix the slowdown, Sam started talking about how much he hated the color options on last year's phones. The repair shop quoted eighty dollars for a new battery and said the job would take about an hour. Jordan warned that if I kept patching an old phone, I would soon be stuck with apps that no longer update, then my bank would lock me out, and eventually I would be cut off from everyone I know. I checked the manufacturer's support page and found that the phone still receives security updates through next year. Sam then asked why we were even talking about phones when the office printer had been jammed all morning.",
+  "expected": [
+   {
+    "n": 1,
+    "starts": "Last week I asked my coworkers",
+    "label": "None",
+    "chars": 87
+   },
+   {
+    "n": 2,
+    "starts": "Priya said her hairdresser told her",
+    "label": "Appeal to Authority",
+    "chars": 105
+   },
+   {
+    "n": 3,
+    "starts": "When I asked whether a new",
+    "label": "Red Herring",
+    "chars": 126
+   },
+   {
+    "n": 4,
+    "starts": "The repair shop quoted eighty dollars",
+    "label": "None",
+    "chars": 80
+   },
+   {
+    "n": 5,
+    "starts": "Jordan warned that if I kept",
+    "label": "Slippery Slope",
+    "chars": 156
+   },
+   {
+    "n": 6,
+    "starts": "I checked the manufacturer's support page",
+    "label": "None",
+    "chars": 100
+   },
+   {
+    "n": 7,
+    "starts": "Sam then asked why we were",
+    "label": "Red Herring",
+    "chars": 87
+   }
+  ]
+ },
+ {
+  "paragraph": "P6 - Gardening: Tomatoes by the downspout",
+  "text": "This spring I planted six tomato seedlings along the south fence and mulched them with straw. Two of them wilted in the first week, so I decided that tomatoes simply cannot grow anywhere in this neighborhood. My neighbor pointed out that the wilted ones were the two closest to the downspout, where the soil stays soggy. She also insisted that talking to her plants makes them grow faster, because no study has ever proven that it does not. When I asked why she trusts her fertilizer brand, she said it works because it is effective at making plants grow. I moved the remaining seedlings a few feet away from the downspout, and they have started setting fruit.",
+  "expected": [
+   {
+    "n": 1,
+    "starts": "This spring I planted six tomato",
+    "label": "None",
+    "chars": 78
+   },
+   {
+    "n": 2,
+    "starts": "Two of them wilted in the",
+    "label": "Hasty Generalization",
+    "chars": 95
+   },
+   {
+    "n": 3,
+    "starts": "My neighbor pointed out that the",
+    "label": "None",
+    "chars": 92
+   },
+   {
+    "n": 4,
+    "starts": "She also insisted that talking to",
+    "label": "Appeal to Ignorance",
+    "chars": 98
+   },
+   {
+    "n": 5,
+    "starts": "When I asked why she trusts",
+    "label": "Circular Reasoning",
+    "chars": 94
+   },
+   {
+    "n": 6,
+    "starts": "I moved the remaining seedlings a",
+    "label": "None",
+    "chars": 87
+   }
+  ]
+ },
+ {
+  "paragraph": "P7 - Commuting: The carpool",
+  "text": "Three of us who live on the same street have been talking about carpooling to the office two days a week. When Lena suggested we try it on Tuesdays and Thursdays, Rob said she obviously wants to take away everyone's car and force us all onto a bus schedule. Lena mentioned that Rob's daily solo drive burns a lot of fuel, and Rob replied that she flew to Spain on vacation last year, so she has no business lecturing anyone about fuel. The office garage charges twelve dollars a day, and a carpool would split that three ways. Rob's wife added that just picturing our kids coughing in the smog should be enough to make anyone sign up, no numbers needed. We agreed to test the arrangement for the month of October and track the fuel and parking costs. Rob still grumbled that Lena's real goal was to ban private cars from the street entirely.",
+  "expected": [
+   {
+    "n": 1,
+    "starts": "Three of us who live on",
+    "label": "None",
+    "chars": 85
+   },
+   {
+    "n": 2,
+    "starts": "When Lena suggested we try it",
+    "label": "Straw Man",
+    "chars": 124
+   },
+   {
+    "n": 3,
+    "starts": "Lena mentioned that Rob's daily solo",
+    "label": "Tu Quoque",
+    "chars": 145
+   },
+   {
+    "n": 4,
+    "starts": "The office garage charges twelve dollars",
+    "label": "None",
+    "chars": 75
+   },
+   {
+    "n": 5,
+    "starts": "Rob's wife added that just picturing",
+    "label": "Appeal to Emotion",
+    "chars": 104
+   },
+   {
+    "n": 6,
+    "starts": "We agreed to test the arrangement",
+    "label": "None",
+    "chars": 79
+   },
+   {
+    "n": 7,
+    "starts": "Rob still grumbled that Lena's real",
+    "label": "Straw Man",
+    "chars": 75
+   }
+  ]
+ },
+ {
+  "paragraph": "P8 - Work: The project tool",
+  "text": "Our team met on Monday to decide whether to move our task tracking from spreadsheets to a dedicated project tool. The manager opened by saying we either adopt the new tool this quarter or we accept that the team will never be organized. When Aisha raised concerns about the migration cost, Ben said her opinion did not count because she had only been at the company for eight months. The vendor's quote came to about forty dollars per user per month, with a discount for annual billing. Ben argued that the tool is free to try, and free things cost nothing, so switching to it will cost the company nothing. Aisha proposed a two-week pilot with three volunteers before making any decision. Ben laughed and said he was not going to take advice from someone who still uses a flip phone.",
+  "expected": [
+   {
+    "n": 1,
+    "starts": "Our team met on Monday to",
+    "label": "None",
+    "chars": 94
+   },
+   {
+    "n": 2,
+    "starts": "The manager opened by saying we",
+    "label": "False Dilemma",
+    "chars": 100
+   },
+   {
+    "n": 3,
+    "starts": "When Aisha raised concerns about the",
+    "label": "Ad Hominem",
+    "chars": 121
+   },
+   {
+    "n": 4,
+    "starts": "The vendor's quote came to about",
+    "label": "None",
+    "chars": 85
+   },
+   {
+    "n": 5,
+    "starts": "Ben argued that the tool is",
+    "label": "Equivocation",
+    "chars": 98
+   },
+   {
+    "n": 6,
+    "starts": "Aisha proposed a two-week pilot with",
+    "label": "None",
+    "chars": 70
+   },
+   {
+    "n": 7,
+    "starts": "Ben laughed and said he was",
+    "label": "Ad Hominem",
+    "chars": 76
+   }
+  ]
+ },
+ {
+  "paragraph": "P9 - Cooking: The air fryer",
+  "text": "My brother bought an air fryer last month and has been using it for almost every dinner. He says it is the healthiest way to cook because a famous singer he follows online said so in a video. Our cousin tried air-fried chicken once at a party and declared that everything made in an air fryer tastes like cardboard. The manual recommends preheating for three minutes and shaking the basket halfway through. When I said I would rather keep using the oven, my brother asked how I could sleep at night knowing my kids were eating greasy food while a healthier option sat right there on the counter. He also pointed to the box, which says the design is endorsed by a well-known race car driver, as proof that it is engineered better than any oven. We compared the two methods on a batch of chicken thighs and found the cooking times were nearly identical.",
+  "expected": [
+   {
+    "n": 1,
+    "starts": "My brother bought an air fryer",
+    "label": "None",
+    "chars": 72
+   },
+   {
+    "n": 2,
+    "starts": "He says it is the healthiest",
+    "label": "Appeal to Authority",
+    "chars": 82
+   },
+   {
+    "n": 3,
+    "starts": "Our cousin tried air-fried chicken once",
+    "label": "Hasty Generalization",
+    "chars": 103
+   },
+   {
+    "n": 4,
+    "starts": "The manual recommends preheating for three",
+    "label": "None",
+    "chars": 78
+   },
+   {
+    "n": 5,
+    "starts": "When I said I would rather",
+    "label": "Appeal to Emotion",
+    "chars": 153
+   },
+   {
+    "n": 6,
+    "starts": "He also pointed to the box,",
+    "label": "Appeal to Authority",
+    "chars": 120
+   },
+   {
+    "n": 7,
+    "starts": "We compared the two methods on",
+    "label": "None",
+    "chars": 89
+   }
+  ]
+ },
+ {
+  "paragraph": "P10 - School: The study group",
+  "text": "Our chemistry study group meets in the library on Wednesdays to go over the week's problem sets. When Omar suggested we skip one session for the football game, Nina said that missing one week leads to missing two, then we would stop meeting entirely, and we would all fail the course. Nina also insisted her study method is the most effective one because it is the method that works best. The problem set this week covers stoichiometry and limiting reagents. When I asked whether we could reschedule to Thursday instead, Omar started complaining about how the library vending machine only takes coins. We eventually agreed to meet Thursday at the same time and cover two chapters instead of one. Nina still muttered that rescheduling once means we will end up rescheduling every week until the group falls apart and none of us graduate.",
+  "expected": [
+   {
+    "n": 1,
+    "starts": "Our chemistry study group meets in",
+    "label": "None",
+    "chars": 80
+   },
+   {
+    "n": 2,
+    "starts": "When Omar suggested we skip one",
+    "label": "Slippery Slope",
+    "chars": 154
+   },
+   {
+    "n": 3,
+    "starts": "Nina also insisted her study method",
+    "label": "Circular Reasoning",
+    "chars": 85
+   },
+   {
+    "n": 4,
+    "starts": "The problem set this week covers",
+    "label": "None",
+    "chars": 60
+   },
+   {
+    "n": 5,
+    "starts": "When I asked whether we could",
+    "label": "Red Herring",
+    "chars": 121
+   },
+   {
+    "n": 6,
+    "starts": "We eventually agreed to meet Thursday",
+    "label": "None",
+    "chars": 77
+   },
+   {
+    "n": 7,
+    "starts": "Nina still muttered that rescheduling once",
+    "label": "Slippery Slope",
+    "chars": 117
+   }
+  ]
+ },
+ {
+  "paragraph": "C1 - Gardening: The herb corner",
+  "text": "I set aside a sunny corner of the backyard this year for a small herb garden. The soil test came back close to neutral, so I skipped adding lime. Basil, parsley, and chives went in as seedlings in early May, and the dill was sown directly from seed. The basil wilted on the first hot afternoon, but it perked up after a deep watering that evening. I water in the morning now, since the leaves dry faster and the plants seem to handle the afternoon heat better. A neighbor who has grown herbs for years showed me how to pinch basil above a leaf pair so it stays bushy. By July the chives had flowered, and I cut them back so the leaves would keep coming.",
+  "expected": [
+   {
+    "n": 1,
+    "starts": "I set aside a sunny corner",
+    "label": "None",
+    "chars": 62
+   },
+   {
+    "n": 2,
+    "starts": "The soil test came back close",
+    "label": "None",
+    "chars": 55
+   },
+   {
+    "n": 3,
+    "starts": "Basil, parsley, and chives went in",
+    "label": "None",
+    "chars": 85
+   },
+   {
+    "n": 4,
+    "starts": "The basil wilted on the first",
+    "label": "None",
+    "chars": 80
+   },
+   {
+    "n": 5,
+    "starts": "I water in the morning now,",
+    "label": "None",
+    "chars": 92
+   },
+   {
+    "n": 6,
+    "starts": "A neighbor who has grown herbs",
+    "label": "None",
+    "chars": 85
+   },
+   {
+    "n": 7,
+    "starts": "By July the chives had flowered,",
+    "label": "None",
+    "chars": 69
+   }
+  ]
+ },
+ {
+  "paragraph": "C2 - Commuting: The express bus log",
+  "text": "In March the city added an express bus that stops two blocks from my apartment and runs straight downtown. I kept a log of my first twenty rides so I could compare the bus fairly with driving. The bus was late by more than five minutes on four of those twenty mornings, and it was early twice. Door to door, the average trip took thirty-one minutes, compared with twenty-six minutes by car on the same days. The monthly pass costs seventy dollars, while parking alone near my office runs about one hundred and eighty. On the bus I can read or answer email, which I cannot do while driving. For now I take the express bus on most days and drive only when I have an evening appointment across town.",
+  "expected": [
+   {
+    "n": 1,
+    "starts": "In March the city added an",
+    "label": "None",
+    "chars": 88
+   },
+   {
+    "n": 2,
+    "starts": "I kept a log of my",
+    "label": "None",
+    "chars": 68
+   },
+   {
+    "n": 3,
+    "starts": "The bus was late by more",
+    "label": "None",
+    "chars": 81
+   },
+   {
+    "n": 4,
+    "starts": "Door to door, the average trip",
+    "label": "None",
+    "chars": 95
+   },
+   {
+    "n": 5,
+    "starts": "The monthly pass costs seventy dollars,",
+    "label": "None",
+    "chars": 92
+   },
+   {
+    "n": 6,
+    "starts": "On the bus I can read",
+    "label": "None",
+    "chars": 57
+   },
+   {
+    "n": 7,
+    "starts": "For now I take the express",
+    "label": "None",
+    "chars": 86
+   }
+  ]
+ },
+ {
+  "paragraph": "G1 - Taxes: Local sales tax hearing",
+  "text": "The town council votes next month on whether to raise the local sales tax by half a percent to pay for road repairs. One resident at the hearing said that if we allow this small increase, next year they will double it, then triple it, and eventually nobody will be able to afford to live here. Another resident said we either pass the increase or accept that every road in town will crumble into gravel. The finance office estimates the increase would bring in about two million dollars a year. A man in the front row said the treasurer's figures could not be trusted because she drives an expensive car. Written comments can be submitted through the town website until the end of the month.",
+  "expected": [
+   {
+    "n": 1,
+    "starts": "The town council votes next month",
+    "label": "None",
+    "chars": 94
+   },
+   {
+    "n": 2,
+    "starts": "One resident at the hearing said",
+    "label": "Slippery Slope",
+    "chars": 144
+   },
+   {
+    "n": 3,
+    "starts": "Another resident said we either pass",
+    "label": "False Dilemma",
+    "chars": 91
+   },
+   {
+    "n": 4,
+    "starts": "The finance office estimates the increase",
+    "label": "None",
+    "chars": 76
+   },
+   {
+    "n": 5,
+    "starts": "A man in the front row",
+    "label": "Ad Hominem",
+    "chars": 90
+   },
+   {
+    "n": 6,
+    "starts": "Written comments can be submitted through",
+    "label": "None",
+    "chars": 72
+   }
+  ]
+ },
+ {
+  "paragraph": "G2 - Immigration: English classes at the community center",
+  "text": "Our community center is considering adding weekend English classes for families who recently moved to the country. When Carla proposed the classes, one board member said she apparently wants the center to stop serving anyone who was born here. Another member said he had met two newcomers who were not interested, so clearly none of the new families would attend. The center already runs a Tuesday evening class with about fifteen students and a waiting list. Carla answered that anyone who has ever watched a child struggle to ask for help in a language they do not speak should not need any more convincing. The board tabled the vote until the director could report on the cost of hiring a second instructor.",
+  "expected": [
+   {
+    "n": 1,
+    "starts": "Our community center is considering adding",
+    "label": "None",
+    "chars": 98
+   },
+   {
+    "n": 2,
+    "starts": "When Carla proposed the classes, one",
+    "label": "Straw Man",
+    "chars": 107
+   },
+   {
+    "n": 3,
+    "starts": "Another member said he had met",
+    "label": "Hasty Generalization",
+    "chars": 99
+   },
+   {
+    "n": 4,
+    "starts": "The center already runs a Tuesday",
+    "label": "None",
+    "chars": 80
+   },
+   {
+    "n": 5,
+    "starts": "Carla answered that anyone who has",
+    "label": "Appeal to Emotion",
+    "chars": 122
+   },
+   {
+    "n": 6,
+    "starts": "The board tabled the vote until",
+    "label": "None",
+    "chars": 83
+   }
+  ]
+ }
+]

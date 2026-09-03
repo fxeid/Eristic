@@ -1,0 +1,12 @@
+{"text": "What do you mean you don't like the plan?", "expected": "None", "source": "extra"}
+{"text": "Why would you doubt her?", "expected": "None", "source": "extra"}
+{"text": "Is there any evidence the new schedule works?", "expected": "None", "source": "extra"}
+{"text": "You should always double-check the numbers before sending the report.", "expected": "None", "source": "extra"}
+{"text": "Everyone should get a flu shot every year, the clinic data shows fewer sick days.", "expected": "None", "source": "extra"}
+{"text": "She is your mother, how could you take his side?", "expected": "Appeal to Emotion", "source": "extra"}
+{"text": "After everything the coach did for you, you owe him your vote.", "expected": "Appeal to Emotion", "source": "extra"}
+{"text": "He is your brother!", "expected": "Appeal to Emotion", "source": "extra"}
+{"text": "Your uncle is family, so whatever he says about the car is right.", "expected": "Appeal to Authority", "source": "extra"}
+{"text": "Trust everything the manager says; he has been here twenty years.", "expected": "Appeal to Authority", "source": "extra"}
+{"text": "You should trust everything he says.", "expected": "Appeal to Authority", "source": "extra"}
+{"text": "My cousin swears by this mechanic, so he must be the best in town.", "expected": "Appeal to Authority", "source": "extra"}

@@ -1,0 +1,65 @@
+instructions chars: 5064 chunk=5 refine=true gate=true ensemble=0
+QUIZ: 48 stems
+  MISS [Appeal to Ignorance -> Circular Reasoning] Since we can't disprove time travel, it must be happening.
+  MISS [Equivocation -> Hasty Generalization] 'a Few' means up to 10! I only had a few beers!
+  MISS [Slippery Slope -> False Dilemma] If I fail tomorrow’s exam, I won't go to a good college.
+  MISS [Hasty Generalization -> None] He smokes 1 pack a day, but his uncle smoked 2 packs a day and lived to be 95.
+  MISS [Red Herring -> None] Yes, I made a mistake, but what about all the good things I've done in the past?
+  MISS [Hasty Generalization -> None] Stock market does better under Democratic presidents
+  MISS [Equivocation -> Circular Reasoning] The priest said I should have faith. I have faith I'll be billionaire!
+  MISS [Slippery Slope -> None] If I eat this slice of pizza, I'll lose control and keep gaining weight.
+CORPUS P1 - School: The homework proposal
+  MISS [Straw Man -> Ad Hominem] A mother in the back answered that she would never support a plan to let children do nothi
+CORPUS P2 - Cooking: Sourdough advice
+  MISS [Circular Reasoning -> None] My neighbor insists her starter is the best in town because no other starter around here i
+  MISS [Equivocation -> None] My grandmother always said nothing beats fresh bread, and a stale cracker beats nothing, s
+CORPUS P3 - Sports: Sunday soccer practice
+CORPUS P4 - Pets: The shelter kitten
+CORPUS P5 - Gadgets: Old phone, new battery
+  MISS [Appeal to Authority -> None] Priya said her hairdresser told her the newest model has the best chip ever made, so repla
+CORPUS P6 - Gardening: Tomatoes by the downspout
+  MISS [Hasty Generalization -> None] Two of them wilted in the first week, so I decided that tomatoes simply cannot grow anywhe
+  MISS [Circular Reasoning -> Appeal to Authority] When I asked why she trusts her fertilizer brand, she said it works because it is effectiv
+CORPUS P7 - Commuting: The carpool
+CORPUS P8 - Work: The project tool
+  MISS [Equivocation -> None] Ben argued that the tool is free to try, and free things cost nothing, so switching to it 
+CORPUS P9 - Cooking: The air fryer
+  MISS [Hasty Generalization -> Straw Man] Our cousin tried air-fried chicken once at a party and declared that everything made in an
+  MISS [Appeal to Emotion -> Tu Quoque] When I said I would rather keep using the oven, my brother asked how I could sleep at nigh
+CORPUS P10 - School: The study group
+  MISS [Slippery Slope -> Straw Man] When Omar suggested we skip one session for the football game, Nina said that missing one 
+  MISS [Red Herring -> Ad Hominem] When I asked whether we could reschedule to Thursday instead, Omar started complaining abo
+CORPUS C1 - Gardening: The herb corner
+CORPUS C2 - Commuting: The express bus log
+CORPUS G1 - Taxes: Local sales tax hearing
+CORPUS G2 - Immigration: English classes at the community center
+  MISS [Straw Man -> DECLINED] When Carla proposed the classes, one board member said she apparently wants the center to 
+
+=== RESULTS ===
+overall: 123/143 = 86%
+none recall: 51/51, false alarms on clean sentences: 0
+  Ad Hominem: 9/9
+  Appeal to Authority: 7/8
+  Appeal to Emotion: 7/8
+  Appeal to Ignorance: 5/6
+  Circular Reasoning: 5/7
+  Equivocation: 2/6
+  False Dilemma: 7/7
+  Hasty Generalization: 4/8
+  Red Herring: 5/7
+  Slippery Slope: 7/10
+  Straw Man: 8/10
+  Tu Quoque: 6/6
+top confusions:
+  3x Hasty Generalization -> None
+  2x Equivocation -> None
+  1x Appeal to Ignorance -> Circular Reasoning
+  1x Straw Man -> Ad Hominem
+  1x Appeal to Emotion -> Tu Quoque
+  1x Red Herring -> None
+  1x Slippery Slope -> Straw Man
+  1x Straw Man -> DECLINED
+  1x Equivocation -> Circular Reasoning
+  1x Slippery Slope -> None
+  1x Circular Reasoning -> None
+  1x Circular Reasoning -> Appeal to Authority

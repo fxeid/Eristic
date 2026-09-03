@@ -1,0 +1,48 @@
+{"text": "Favor free college tuition? you want a lower education quality and inflated taxes.", "expected": "Straw Man", "source": "quiz"}
+{"text": "You're just a conspiracy theorist. You don't know what you're talking about.", "expected": "Ad Hominem", "source": "quiz"}
+{"text": "We either love our country unconditionally or we're traitors.", "expected": "False Dilemma", "source": "quiz"}
+{"text": "We can't see dark matter, so it doesn't exist.", "expected": "Appeal to Ignorance", "source": "quiz"}
+{"text": "Don't lecture about cheating; you cheated years ago too.", "expected": "Tu Quoque", "source": "quiz"}
+{"text": "Allow marijuana use? eveyone now will use cocaine and commit crimes.", "expected": "Slippery Slope", "source": "quiz"}
+{"text": "This law is just and fair because it's the law.", "expected": "Circular Reasoning", "source": "quiz"}
+{"text": "All teenagers are irresponsible. They only care about having fun.", "expected": "Hasty Generalization", "source": "quiz"}
+{"text": "My favorite influencer said this clothing line is trendy, so it must be.", "expected": "Appeal to Authority", "source": "quiz"}
+{"text": "Let's forget about human rights, the economy is way more important now.", "expected": "Red Herring", "source": "quiz"}
+{"text": "Celine Dion is a star, the Sun is a star, Celine Dion is the sun!", "expected": "Equivocation", "source": "quiz"}
+{"text": "Don't be cruel! Donate to this animal shelter.", "expected": "Appeal to Emotion", "source": "quiz"}
+{"text": "Since we can't disprove time travel, it must be happening.", "expected": "Appeal to Ignorance", "source": "quiz"}
+{"text": "Peace is the best strategy because Einstein said so.", "expected": "Appeal to Authority", "source": "quiz"}
+{"text": "'a Few' means up to 10! I only had a few beers!", "expected": "Equivocation", "source": "quiz"}
+{"text": "You can either accept my terms, or we have no deal at all.", "expected": "False Dilemma", "source": "quiz"}
+{"text": "The president is destroying our country. We need to stand up and fight back!", "expected": "Appeal to Emotion", "source": "quiz"}
+{"text": "If I fail tomorrow\u2019s exam, I won't go to a good college.", "expected": "Slippery Slope", "source": "quiz"}
+{"text": "He smokes 1 pack a day, but his uncle smoked 2 packs a day and lived to be 95.", "expected": "Hasty Generalization", "source": "quiz"}
+{"text": "Why listen to him about finance? He can't even manage his own budget.", "expected": "Ad Hominem", "source": "quiz"}
+{"text": "This medication is effective because the label says it works.", "expected": "Circular Reasoning", "source": "quiz"}
+{"text": "Yes, I made a mistake, but what about all the good things I've done in the past?", "expected": "Red Herring", "source": "quiz"}
+{"text": "Don't criticize my eating habits; I've seen you indulge in junk food before.", "expected": "Tu Quoque", "source": "quiz"}
+{"text": "Advocating for free speech is just a cover for promoting hate speech.", "expected": "Straw Man", "source": "quiz"}
+{"text": "Her opinions are always right because she's the most informed.", "expected": "Circular Reasoning", "source": "quiz"}
+{"text": "Stock market does better under Democratic presidents", "expected": "Hasty Generalization", "source": "quiz"}
+{"text": "Don't take his political views seriously; he's just a liberal snowflake.", "expected": "Ad Hominem", "source": "quiz"}
+{"text": "You're urging me to be organized? Your desk is always a mess.", "expected": "Tu Quoque", "source": "quiz"}
+{"text": "No one can explain the Bermuda Triangle, so it must be supernatural.", "expected": "Appeal to Ignorance", "source": "quiz"}
+{"text": "Supporting privacy rights is accused of aiding criminals hiding illegal activities.", "expected": "Straw Man", "source": "quiz"}
+{"text": "The priest said I should have faith. I have faith I'll be billionaire!", "expected": "Equivocation", "source": "quiz"}
+{"text": "The proposal may have flaws, but think about the potential benefits it could bring.", "expected": "Red Herring", "source": "quiz"}
+{"text": "You should take those vitamins because Brad Pitt said they are the best.", "expected": "Appeal to Authority", "source": "quiz"}
+{"text": "Stop Climate Change Before It Changes You!", "expected": "Appeal to Emotion", "source": "quiz"}
+{"text": "If we lower voting age to 16, before you know it, babies will vote too!", "expected": "Slippery Slope", "source": "quiz"}
+{"text": "You can either accept my terms, or we have no deal at all.", "expected": "False Dilemma", "source": "quiz"}
+{"text": "What is light can't be dark. Therefore, feathers can't be dark", "expected": "Equivocation", "source": "quiz"}
+{"text": "There must be objective rights and wrongs. If not, how can torturing humans ever be right?", "expected": "Appeal to Emotion", "source": "quiz"}
+{"text": "So kids should learn about world cultures? do you to teach our kids extreme ideas?", "expected": "Straw Man", "source": "quiz"}
+{"text": "He is trustworthy because he always tells the truth.", "expected": "Circular Reasoning", "source": "quiz"}
+{"text": "Yes, I failed the exam, but consider the unfair difficulty of the questions.", "expected": "Red Herring", "source": "quiz"}
+{"text": "If I eat this slice of pizza, I'll lose control and keep gaining weight.", "expected": "Slippery Slope", "source": "quiz"}
+{"text": "My fitness trainer says exercises will get rid of my neck pain.", "expected": "Appeal to Authority", "source": "quiz"}
+{"text": "You're against gossip? I've heard you gossiping many times!", "expected": "Tu Quoque", "source": "quiz"}
+{"text": "My dad would ever clean. Men are useless when it comes to doing chores.", "expected": "Hasty Generalization", "source": "quiz"}
+{"text": "You're either with the popular opinion, or you're against the people's will.", "expected": "False Dilemma", "source": "quiz"}
+{"text": "No proof ghosts aren't real, so they probably exist.", "expected": "Appeal to Ignorance", "source": "quiz"}
+{"text": "Why follow her diet advice? Look at her, she's not even in shape.", "expected": "Ad Hominem", "source": "quiz"}

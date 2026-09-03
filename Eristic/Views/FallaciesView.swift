@@ -49,6 +49,15 @@ struct FallaciesView: View {
                                 .cornerRadius(6)
                         }
                     }
+                    
+                    NavigationLink(destination: FallacyFinderView()) {
+                        Text("Fallacy Finder")
+                            .font(.title3)
+                            .frame(maxWidth: .infinity, maxHeight: 40)
+                            .foregroundColor(Color.white)
+                            .background(Color.blue)
+                            .cornerRadius(6)
+                    }
                 }
                 .padding()
                 

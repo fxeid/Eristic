@@ -1,0 +1,20 @@
+{"text": "Hey, how's it going?", "expected": "None", "note": "Greeting; no claim, no argument."}
+{"text": "Ugh, Mondays, am I right?", "expected": "None", "note": "Small talk; rhetorical tag question is not an argument. Watch for Appeal to Emotion false positive."}
+{"text": "Turn off the lights when you leave.", "expected": "None", "note": "Imperative command; no premise or conclusion."}
+{"text": "Whisk the eggs, then fold in the flour until just combined.", "expected": "None", "note": "Recipe step; procedural text, not reasoning."}
+{"text": "It's supposed to rain all weekend, high of 61.", "expected": "None", "note": "Weather report; plain forecast statement."}
+{"text": "Milk, eggs, bread, coffee, bananas.", "expected": "None", "note": "Shopping list; comma-separated nouns, no sentence structure."}
+{"text": "Okay.", "expected": "None", "note": "Single word; degenerate input."}
+{"text": "I SAID TURN IT OFF RIGHT NOW!!!", "expected": "None", "note": "ALL CAPS shouting with no claim; intensity alone must not trigger Appeal to Emotion."}
+{"text": "🎉🎉🎉🔥🔥", "expected": "None", "note": "Emoji-only line; no words at all."}
+{"text": "Call me at (555) 013-4472.", "expected": "None", "note": "Phone number (fictional 555 exchange); contact info, not argument."}
+{"text": "https://example.com/blog/post-12", "expected": "None", "note": "Bare URL; no natural-language content."}
+{"text": "let total = items.reduce(0) { $0 + $1.price }", "expected": "None", "note": "Line of Swift code; symbols and identifiers, not prose."}
+{"text": "asdkjfh qwpeoiru zmxncbv", "expected": "None", "note": "Keyboard-mash gibberish; no parseable meaning."}
+{"text": "March 14, 2026", "expected": "None", "note": "Bare date; fragment with no verb."}
+{"text": "$49.99", "expected": "None", "note": "Quoted price; number only."}
+{"text": "Oh great, another meeting that could have been an email.", "expected": "None", "note": "Sarcastic complaint with no argument; watch for Red Herring or Appeal to Emotion false positive."}
+{"text": "What time does the store close?", "expected": "None", "note": "Plain information-seeking question; nothing asserted."}
+{"text": "Reminder: dentist Tuesday at 3.", "expected": "None", "note": "Calendar note; fragment, no reasoning."}
+{"text": "brb grabbing lunch", "expected": "None", "note": "Chat shorthand; lowercase, no punctuation, no claim."}
+{"text": "Water boils at 100 degrees Celsius at sea level.", "expected": "None", "note": "Plain factual statement; a bare claim with no inference is not an argument, so no fallacy possible."}

@@ -28,6 +28,10 @@
 		054FCBFA2B21B58F00A5AA4B /* StateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054FCBF92B21B58F00A5AA4B /* StateModel.swift */; };
 		054FCBFC2B21B5E500A5AA4B /* AuthenticationManagerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054FCBFB2B21B5E500A5AA4B /* AuthenticationManagerVM.swift */; };
 		054FCBFE2B21BA3B00A5AA4B /* SwipeManagerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054FCBFD2B21BA3B00A5AA4B /* SwipeManagerVM.swift */; };
+		054FCC022B21C00000A5AA4B /* FallacyAnalysisModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054FCC012B21C00000A5AA4B /* FallacyAnalysisModel.swift */; };
+		054FCC042B21C00000A5AA4B /* FallacyFinderVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054FCC032B21C00000A5AA4B /* FallacyFinderVM.swift */; };
+		054FCC082B21C00000A5AA4B /* FallacyRefineEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054FCC072B21C00000A5AA4B /* FallacyRefineEngine.swift */; };
+		054FCC062B21C00000A5AA4B /* FallacyFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054FCC052B21C00000A5AA4B /* FallacyFinderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +57,10 @@
 		054FCBF92B21B58F00A5AA4B /* StateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateModel.swift; sourceTree = "<group>"; };
 		054FCBFB2B21B5E500A5AA4B /* AuthenticationManagerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManagerVM.swift; sourceTree = "<group>"; };
 		054FCBFD2B21BA3B00A5AA4B /* SwipeManagerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeManagerVM.swift; sourceTree = "<group>"; };
+		054FCC012B21C00000A5AA4B /* FallacyAnalysisModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallacyAnalysisModel.swift; sourceTree = "<group>"; };
+		054FCC032B21C00000A5AA4B /* FallacyFinderVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallacyFinderVM.swift; sourceTree = "<group>"; };
+		054FCC072B21C00000A5AA4B /* FallacyRefineEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallacyRefineEngine.swift; sourceTree = "<group>"; };
+		054FCC052B21C00000A5AA4B /* FallacyFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallacyFinderView.swift; sourceTree = "<group>"; };
 		054FCBFF2B21BC4500A5AA4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,6 +127,7 @@
 				054FCBEB2B21B3E800A5AA4B /* QuizCompletedView.swift */,
 				054FCBED2B21B41100A5AA4B /* QuizView.swift */,
 				054FCBEF2B21B44700A5AA4B /* ReusableText.swift */,
+				054FCC052B21C00000A5AA4B /* FallacyFinderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -130,6 +139,7 @@
 				054FCBF12B21B4A100A5AA4B /* UserModel.swift */,
 				054FCBF32B21B4F700A5AA4B /* FallacyDetailesModel.swift */,
 				054FCBF72B21B55200A5AA4B /* QuizModel.swift */,
+				054FCC012B21C00000A5AA4B /* FallacyAnalysisModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -140,6 +150,8 @@
 				054FCBF52B21B52900A5AA4B /* GameManagerVM.swift */,
 				054FCBFB2B21B5E500A5AA4B /* AuthenticationManagerVM.swift */,
 				054FCBFD2B21BA3B00A5AA4B /* SwipeManagerVM.swift */,
+				054FCC032B21C00000A5AA4B /* FallacyFinderVM.swift */,
+				054FCC072B21C00000A5AA4B /* FallacyRefineEngine.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -233,6 +245,10 @@
 				054FCBEC2B21B3E800A5AA4B /* QuizCompletedView.swift in Sources */,
 				054FCBE62B21B37000A5AA4B /* CardView.swift in Sources */,
 				054FCBE42B21B34A00A5AA4B /* CardsStackView.swift in Sources */,
+				054FCC022B21C00000A5AA4B /* FallacyAnalysisModel.swift in Sources */,
+				054FCC042B21C00000A5AA4B /* FallacyFinderVM.swift in Sources */,
+				054FCC082B21C00000A5AA4B /* FallacyRefineEngine.swift in Sources */,
+				054FCC062B21C00000A5AA4B /* FallacyFinderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
