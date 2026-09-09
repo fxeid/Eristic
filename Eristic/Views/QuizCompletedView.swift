@@ -105,7 +105,7 @@ struct QuizCompletedView: View {
 
             if !summary.isEmpty {
                 Text(summary)
-                    .xeidText(19, lineHeight: 1.45, color: XeidColor.secondary, relativeTo: .title3)
+                    .xeidText(XeidFont.cardTitleSize, lineHeight: 1.45, color: XeidColor.secondary, relativeTo: .title3)
                     .frame(maxWidth: 290, alignment: .leading)
                     .padding(.top, 24)
             }

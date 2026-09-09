@@ -169,7 +169,7 @@ struct FallacyFinderView: View {
                 // Verbatim so the cap reads "4000", not the locale's "4,000"
                 Text(verbatim: "\(viewModel.inputText.count) / \(viewModel.maxCharacters)")
                     .font(XeidFont.eyebrow)
-                    .tracking(0.1 * 12)
+                    .tracking(0.1 * XeidFont.eyebrowSize)
                     .foregroundColor(XeidColor.secondary)
                     .monospacedDigit()
             }
@@ -183,12 +183,12 @@ struct FallacyFinderView: View {
         ZStack(alignment: .topLeading) {
             if viewModel.inputText.isEmpty {
                 Text(placeholder)
-                    .xeidText(19, lineHeight: 1.45, color: XeidColor.secondary, relativeTo: .title3)
+                    .xeidText(XeidFont.cardTitleSize, lineHeight: 1.45, color: XeidColor.secondary, relativeTo: .title3)
                     .allowsHitTesting(false)
             }
             TextField("", text: $viewModel.inputText, axis: .vertical)
                 .lineLimit(6...)
-                .font(XeidFont.inter(19, relativeTo: .title3))
+                .font(XeidFont.inter(XeidFont.cardTitleSize, relativeTo: .title3))
                 .foregroundColor(XeidColor.ink)
                 .tint(XeidColor.blue)
                 .focused($editorFocused)
@@ -240,7 +240,7 @@ struct FallacyFinderView: View {
             }
 
             Text("Runs on Apple Intelligence, on this phone. Nothing is uploaded, and nothing is stored.")
-                .xeidText(14, lineHeight: 1.4, color: XeidColor.secondary, relativeTo: .footnote)
+                .xeidText(XeidFont.captionSize, lineHeight: 1.4, color: XeidColor.secondary, relativeTo: .callout)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity)
         }
@@ -445,7 +445,7 @@ struct FallacyFinderView: View {
     private func findingCard(_ finding: AnalyzedSentence) -> some View {
         VStack(alignment: .leading, spacing: 13) {
             Text("\u{201C}\(finding.text)\u{201D}")
-                .xeidText(19, lineHeight: 1.45, tracking: -0.01, relativeTo: .title3)
+                .xeidText(XeidFont.cardTitleSize, lineHeight: 1.45, tracking: -0.01, relativeTo: .title3)
                 .fixedSize(horizontal: false, vertical: true)
 
             if let fallacy = finding.label.fallacy {

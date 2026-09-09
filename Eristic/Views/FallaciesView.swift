@@ -238,14 +238,14 @@ private struct HubGreeting: View {
                 HStack(spacing: 8) {
                     Text("Set your name")
                         .font(XeidFont.caption)
-                        .tracking(0.04 * 14)
+                        .tracking(0.04 * XeidFont.captionSize)
                         .foregroundColor(pressed ? XeidColor.ink : XeidColor.blue)
                     XeidSymbol(glyph: .edit, size: 16, rule: false, tone: pressed ? .ink : .brand)
                 }
             } else {
                 Text(greeting)
                     .font(XeidFont.caption)
-                    .tracking(0.04 * 14)
+                    .tracking(0.04 * XeidFont.captionSize)
                     .foregroundColor(pressed ? XeidColor.ink : XeidColor.secondary)
             }
         }

@@ -46,11 +46,16 @@ extension Color {
 }
 
 // MARK: - Type
-// Inter only, weights 300 and 400. Sizes scale with Dynamic Type relative to
-// their Apple text style, and sit on Apple's own scale: 34 large title,
-// 30/27 titles, 19 title 3, 17 body, 16 callout, 15 subheadline, 13 footnote,
-// 12 caption. Nothing is smaller than 12, so nothing lands under the 11pt
-// floor the HIG sets even at the smallest Dynamic Type setting.
+// Inter only, weights 300 and 400, on Apple's own text-style scale — and, more
+// to the point, used for what Apple uses each size FOR. Body (17) is the size
+// for anything a reader actually reads; Callout (16) is body with less weight
+// in the hierarchy; Subheadline (15) is genuinely secondary. Only structural
+// labels sit below that, at Footnote (13), which is where Apple sets its own
+// uppercase section headers. Nothing in the app is smaller than 13.
+//
+// This corrects a scale that had descriptive copy at 15, explanatory notes at
+// 13 and every section label at 12 — Caption and Footnote sizes carrying Body
+// content, which is what made the interface read small.
 //
 // Weight is 400 by default. The HIG says to avoid light weights, "which can
 // be difficult to see, especially when text is small", so 300 is kept for
@@ -58,6 +63,20 @@ extension Color {
 // is not at stake. Anything at reading size is 400.
 enum XeidFont {
     enum Weight { case light, regular }
+
+    // The scale. Tracking and line heights below are multiples of these, so a
+    // size is changed here and nowhere else.
+    static let displaySize: CGFloat = 34     // Large Title
+    static let titleSize: CGFloat = 30
+    static let title2Size: CGFloat = 27
+    static let cardTitleSize: CGFloat = 20   // Title 3
+    static let bodySize: CGFloat = 17        // Body
+    static let bodySmallSize: CGFloat = 16   // Callout
+    static let secondarySize: CGFloat = 17   // Body — descriptive copy is reading text
+    static let captionSize: CGFloat = 16     // Callout
+    static let footnoteSize: CGFloat = 15    // Subheadline
+    static let eyebrowSize: CGFloat = 13     // Footnote — Apple's own section-header size
+    static let buttonSize: CGFloat = 17      // Body — a control is never below reading size
     
     static func inter(_ size: CGFloat, weight: Weight = .regular, relativeTo style: Font.TextStyle = .body) -> Font {
         Font.custom(weight == .light ? "Inter-Light" : "Inter-Regular", size: size, relativeTo: style)
@@ -70,17 +89,17 @@ enum XeidFont {
         Font.custom(weight == .light ? "Inter-Light" : "Inter-Regular", fixedSize: size)
     }
     
-    static let display = inter(34, weight: .light, relativeTo: .largeTitle)  // screen titles, tracking -0.035em
-    static let title = inter(30, weight: .light, relativeTo: .title)          // hub headline
-    static let title2 = inter(27, weight: .light, relativeTo: .title2)
-    static let cardTitle = inter(19, weight: .regular, relativeTo: .title3)
-    static let body = inter(17)
-    static let bodySmall = inter(16)
-    static let secondary = inter(15, relativeTo: .subheadline)
-    static let caption = inter(14, relativeTo: .footnote)
-    static let footnote = inter(13, relativeTo: .footnote)
-    static let eyebrow = inter(12, weight: .regular, relativeTo: .caption)
-    static let button = inter(16, weight: .regular)
+    static let display = inter(displaySize, weight: .light, relativeTo: .largeTitle)  // tracking -0.035em
+    static let title = inter(titleSize, weight: .light, relativeTo: .title)           // hub headline
+    static let title2 = inter(title2Size, weight: .light, relativeTo: .title2)
+    static let cardTitle = inter(cardTitleSize, relativeTo: .title3)
+    static let body = inter(bodySize)
+    static let bodySmall = inter(bodySmallSize, relativeTo: .callout)
+    static let secondary = inter(secondarySize)
+    static let caption = inter(captionSize, relativeTo: .callout)
+    static let footnote = inter(footnoteSize, relativeTo: .subheadline)
+    static let eyebrow = inter(eyebrowSize, relativeTo: .footnote)
+    static let button = inter(buttonSize)
 
     // The spec's line heights are CSS multiples of the size. Inter's own line
     // height is about 1.21 x size, so only the part above that is added as
@@ -96,35 +115,43 @@ enum XeidFont {
 // XeidFont.lineSpacing so the blocks come out the height the design draws.
 extension View {
     func xeidDisplay(_ color: Color = XeidColor.ink) -> some View {
-        font(XeidFont.display).tracking(-0.035 * 34).lineSpacing(XeidFont.lineSpacing(34, lineHeight: 1.05)).foregroundColor(color)
+        font(XeidFont.display).tracking(-0.035 * XeidFont.displaySize).lineSpacing(XeidFont.lineSpacing(XeidFont.displaySize, lineHeight: 1.05)).foregroundColor(color)
     }
     func xeidTitle(_ color: Color = XeidColor.ink) -> some View {
-        font(XeidFont.title).tracking(-0.035 * 30).foregroundColor(color)
+        font(XeidFont.title).tracking(-0.035 * XeidFont.titleSize).foregroundColor(color)
     }
     func xeidTitle2(_ color: Color = XeidColor.ink) -> some View {
-        font(XeidFont.title2).tracking(-0.035 * 27).foregroundColor(color)
+        font(XeidFont.title2).tracking(-0.035 * XeidFont.title2Size).foregroundColor(color)
     }
     func xeidCardTitle(_ color: Color = XeidColor.ink) -> some View {
-        font(XeidFont.cardTitle).tracking(-0.015 * 19).foregroundColor(color)
+        font(XeidFont.cardTitle).tracking(-0.015 * XeidFont.cardTitleSize).foregroundColor(color)
     }
     func xeidBody(_ color: Color = XeidColor.ink) -> some View {
-        font(XeidFont.body).tracking(-0.01 * 17).lineSpacing(XeidFont.lineSpacing(17, lineHeight: 1.45)).foregroundColor(color)
+        font(XeidFont.body).tracking(-0.01 * XeidFont.bodySize).lineSpacing(XeidFont.lineSpacing(XeidFont.bodySize, lineHeight: 1.45)).foregroundColor(color)
     }
     func xeidBodySmall(_ color: Color = XeidColor.ink) -> some View {
-        font(XeidFont.bodySmall).tracking(-0.02 * 16).foregroundColor(color)
+        font(XeidFont.bodySmall).tracking(-0.02 * XeidFont.bodySmallSize).foregroundColor(color)
     }
     func xeidSecondary(_ color: Color = XeidColor.secondary) -> some View {
-        font(XeidFont.secondary).lineSpacing(XeidFont.lineSpacing(15, lineHeight: 1.35)).foregroundColor(color)
+        font(XeidFont.secondary).lineSpacing(XeidFont.lineSpacing(XeidFont.secondarySize, lineHeight: 1.35)).foregroundColor(color)
+    }
+    // A cell's supporting line: Callout, one step under the cell's Title 3
+    // title, which is where Apple puts a subtitle. Reading text is xeidBody or
+    // xeidSecondary; this is a label under a heading.
+    func xeidCellLine(_ color: Color = XeidColor.ink) -> some View {
+        font(XeidFont.bodySmall)
+            .lineSpacing(XeidFont.lineSpacing(XeidFont.bodySmallSize, lineHeight: 1.35))
+            .foregroundColor(color)
     }
     func xeidCaption(_ color: Color = XeidColor.secondary) -> some View {
         font(XeidFont.caption).foregroundColor(color)
     }
     func xeidFootnote(_ color: Color = XeidColor.secondary) -> some View {
-        font(XeidFont.footnote).lineSpacing(XeidFont.lineSpacing(13, lineHeight: 1.4)).foregroundColor(color)
+        font(XeidFont.footnote).lineSpacing(XeidFont.lineSpacing(XeidFont.footnoteSize, lineHeight: 1.4)).foregroundColor(color)
     }
     // Section labels: 12/400 uppercase, 0.18em; nav and meta use 0.14em
     func xeidEyebrow(_ color: Color = XeidColor.secondary, wide: Bool = true) -> some View {
-        font(XeidFont.eyebrow).tracking((wide ? 0.18 : 0.14) * 12).textCase(.uppercase).foregroundColor(color)
+        font(XeidFont.eyebrow).tracking((wide ? 0.18 : 0.14) * XeidFont.eyebrowSize).textCase(.uppercase).foregroundColor(color)
     }
 }
 
@@ -185,7 +212,7 @@ struct CraftedByXeid: View {
             XeidNeonX(height: 15)
             Text("Crafted by XEID Intelligence")
                 .font(XeidFont.caption)
-                .tracking(0.04 * 14)
+                .tracking(0.04 * XeidFont.captionSize)
                 .foregroundColor(XeidColor.secondary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.8) // 14pt floors at 11.2, the HIG minimum

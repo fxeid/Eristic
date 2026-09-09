@@ -60,7 +60,7 @@ private struct OptionRow: View {
             badge
 
             Text(option.option)
-                .xeidText(19,
+                .xeidText(XeidFont.cardTitleSize,
                           lineHeight: 1.25,
                           tracking: -0.015,
                           relativeTo: .title3)

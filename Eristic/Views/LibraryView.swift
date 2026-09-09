@@ -115,8 +115,8 @@ private struct LibraryCell: View {
             Spacer(minLength: 0)
 
             Text(fallacy.title)
-                .font(XeidFont.inter(19, relativeTo: .title3))
-                .tracking(-0.01 * 19)
+                .font(XeidFont.inter(XeidFont.cardTitleSize, relativeTo: .title3))
+                .tracking(-0.01 * XeidFont.cardTitleSize)
                 .lineSpacing(19 * 0.04)
                 .foregroundColor(XeidColor.ink)
                 .multilineTextAlignment(.leading)

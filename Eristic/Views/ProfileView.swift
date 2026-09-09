@@ -184,7 +184,7 @@ private struct StatCell: View {
                 .minimumScaleFactor(0.6)
             Text(label)
                 .xeidEyebrow(XeidColor.secondary, wide: false)
-                .lineSpacing(XeidFont.lineSpacing(12, lineHeight: 1.3))
+                .lineSpacing(XeidFont.lineSpacing(XeidFont.eyebrowSize, lineHeight: 1.3))
                 .fixedSize(horizontal: false, vertical: true)
         }
         .padding(EdgeInsets(top: 20, leading: 18, bottom: 20, trailing: 18))

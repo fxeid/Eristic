@@ -105,7 +105,7 @@ private struct QuizRunView: View {
                 QuizTimerRing(secondsLeft: gameManagerVM.secondsLeft, fraction: remainingFraction)
                 Text("Seconds left in this run")
                     .xeidEyebrow(XeidColor.secondary, wide: false)
-                    .lineSpacing(XeidFont.lineSpacing(12, lineHeight: 1.35))
+                    .lineSpacing(XeidFont.lineSpacing(XeidFont.eyebrowSize, lineHeight: 1.35))
             }
         }
         .padding(EdgeInsets(top: 30, leading: 24, bottom: 26, trailing: 24))
@@ -160,7 +160,7 @@ private struct QuizTimerRing: View {
                 .rotationEffect(.degrees(-90))
                 .animation(.linear(duration: 1), value: fraction)
             Text("\(secondsLeft)")
-                .font(XeidFont.inter(15, relativeTo: .subheadline))
+                .font(XeidFont.secondary)
                 .foregroundColor(XeidColor.ink)
                 .lineLimit(1)
                 .minimumScaleFactor(0.75) // 15pt floors at 11.25, the HIG minimum

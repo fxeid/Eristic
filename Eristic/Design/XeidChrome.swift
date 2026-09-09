@@ -119,8 +119,8 @@ struct XeidLockup: View {
         HStack(spacing: 10) {
             XeidNeonX(height: 22)
             Text("Think Critical")
-                .font(XeidFont.inter(15, relativeTo: .subheadline))
-                .tracking(-0.01 * 15)
+                .font(XeidFont.secondary)
+                .tracking(-0.01 * XeidFont.secondarySize)
                 .foregroundColor(XeidColor.secondary)
         }
         .accessibilityElement(children: .combine)
@@ -235,7 +235,7 @@ struct XeidGateCell: View {
                 Text(title)
                     .xeidCardTitle()
                 Text(line)
-                    .xeidSecondary(XeidColor.ink)
+                    .xeidCellLine()
                     .padding(.top, 7)
                 Text(eyebrow)
                     .xeidEyebrow(XeidColor.secondary, wide: false)
@@ -329,13 +329,13 @@ struct XeidTextField: View {
 
         TextField("", text: $text)
             .focused(isFocused)
-            .font(XeidFont.inter(19, relativeTo: .title3))
+            .font(XeidFont.inter(XeidFont.cardTitleSize, relativeTo: .title3))
             .foregroundColor(XeidColor.ink)
             .tint(XeidColor.blue)
             .overlay(alignment: .leading) {
                 if text.isEmpty {
                     Text(placeholder)
-                        .font(XeidFont.inter(19, relativeTo: .title3))
+                        .font(XeidFont.inter(XeidFont.cardTitleSize, relativeTo: .title3))
                         .foregroundColor(XeidColor.muted)
                         .allowsHitTesting(false)
                 }
@@ -408,8 +408,8 @@ struct XeidTextButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(XeidFont.inter(16, weight: .regular, relativeTo: .body))
-            .tracking(-0.01 * 16)
+            .font(XeidFont.button)
+            .tracking(-0.01 * XeidFont.buttonSize)
             .foregroundColor(configuration.isPressed ? XeidColor.ink : XeidColor.secondary)
             .frame(maxWidth: .infinity, minHeight: 50)
             .contentShape(Rectangle())

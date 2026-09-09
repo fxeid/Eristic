@@ -163,7 +163,7 @@ private struct FallacyDetailPage: View {
     // Body copy verbatim from the model, minus the emoji and diamond bullets
     private func bodyText(_ text: String) -> some View {
         Text(FallacyCopy.clean(text))
-            .font(XeidFont.inter(19, relativeTo: .title3))
+            .font(XeidFont.inter(XeidFont.cardTitleSize, relativeTo: .title3))
             .lineSpacing(19 * 0.24)
             .foregroundColor(XeidColor.ink)
             .multilineTextAlignment(.leading)
@@ -198,7 +198,7 @@ private struct DialogueLine: View {
             XeidInlineGlyph(glyph: .speaker, size: 22, color: color)
                 .padding(.top, 3)
             Text(text)
-                .font(XeidFont.inter(19, relativeTo: .title3))
+                .font(XeidFont.inter(XeidFont.cardTitleSize, relativeTo: .title3))
                 .lineSpacing(19 * 0.24)
                 .foregroundColor(XeidColor.ink)
                 .multilineTextAlignment(.leading)
