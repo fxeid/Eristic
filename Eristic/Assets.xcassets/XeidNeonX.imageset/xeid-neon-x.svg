@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<defs>
+<linearGradient id="xg-a" gradientUnits="userSpaceOnUse" x1="194" y1="178" x2="826" y2="809">
+<stop offset="0" stop-color="#3f77e7"></stop><stop offset="0.40" stop-color="#3f77e7"></stop><stop offset="0.435" stop-color="#5487ea"></stop><stop offset="0.46" stop-color="#6f9aee"></stop><stop offset="0.478" stop-color="#8fb2f1"></stop><stop offset="0.49" stop-color="#e2eafc"></stop><stop offset="0.495" stop-color="#ffffff"></stop><stop offset="0.505" stop-color="#ffffff"></stop><stop offset="0.51" stop-color="#fce4f0"></stop><stop offset="0.522" stop-color="#fa8bc0"></stop><stop offset="0.54" stop-color="#f959a7"></stop><stop offset="0.565" stop-color="#f8288c"></stop><stop offset="0.60" stop-color="#f70077"></stop><stop offset="1" stop-color="#f70077"></stop>
+</linearGradient>
+<linearGradient id="xg-b" gradientUnits="userSpaceOnUse" x1="195" y1="808" x2="825" y2="178">
+<stop offset="0" stop-color="#3f77e7"></stop><stop offset="0.40" stop-color="#3f77e7"></stop><stop offset="0.435" stop-color="#5487ea"></stop><stop offset="0.46" stop-color="#6f9aee"></stop><stop offset="0.478" stop-color="#8fb2f1"></stop><stop offset="0.49" stop-color="#e2eafc"></stop><stop offset="0.495" stop-color="#ffffff"></stop><stop offset="0.505" stop-color="#ffffff"></stop><stop offset="0.51" stop-color="#fce4f0"></stop><stop offset="0.522" stop-color="#fa8bc0"></stop><stop offset="0.54" stop-color="#f959a7"></stop><stop offset="0.565" stop-color="#f8288c"></stop><stop offset="0.60" stop-color="#f70077"></stop><stop offset="1" stop-color="#f70077"></stop>
+</linearGradient>
+<filter id="xg-bloom" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="12"></feGaussianBlur></filter>
+<filter id="xg-halo" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="36"></feGaussianBlur></filter>
+</defs>
+<g style="isolation:isolate">
+<g style="mix-blend-mode:screen">
+<line x1="194" y1="178" x2="826" y2="809" stroke="url(#xg-a)" stroke-width="14" filter="url(#xg-halo)" opacity="0.65"></line>
+<line x1="194" y1="178" x2="826" y2="809" stroke="url(#xg-a)" stroke-width="10" filter="url(#xg-bloom)" opacity="1"></line>
+<line x1="194" y1="178" x2="826" y2="809" stroke="url(#xg-a)" stroke-width="10"></line>
+</g>
+<g style="mix-blend-mode:screen">
+<line x1="195" y1="808" x2="825" y2="178" stroke="url(#xg-b)" stroke-width="14" filter="url(#xg-halo)" opacity="0.65"></line>
+<line x1="195" y1="808" x2="825" y2="178" stroke="url(#xg-b)" stroke-width="10" filter="url(#xg-bloom)" opacity="1"></line>
+<line x1="195" y1="808" x2="825" y2="178" stroke="url(#xg-b)" stroke-width="10"></line>
+</g>
+</g>
+</svg>

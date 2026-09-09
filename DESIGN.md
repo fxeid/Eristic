@@ -102,17 +102,15 @@ In SwiftUI, MVVM is a commonly adopted pattern due to its compatibility with the
 - **Reusability:**
   - Modular structure promotes reusability and testability.
 
-- **Error Handling:**
-  - showAlert function handles errors effectively for a better user experience.
+- **Root Routing:**
+  - Chooses between WelcomeView on a first launch and FallaciesView afterwards, based on `LocalAccount.shouldAskForName`.
 
-- **Navigation Logic:**
-  - NavigationLink usage and login/registration logic contribute to seamless navigation.
+- **WelcomeView:**
+  - Full screen name entry, reused as the rename screen from FallaciesView.
+  - Continue stores the name, Skip for now leaves it empty and is remembered so the prompt is not repeated.
 
 - **Responsive UI:**
   - Design ensures responsiveness on various devices.
-
-- **Feedback to the User:**
-  - Uses an alert with a brain emoji for informative and engaging user communication.
 
 - **Swift and SwiftUI Features:**
   - Utilizes Swift's safety features and SwiftUI's declarative syntax.
@@ -122,14 +120,14 @@ In SwiftUI, MVVM is a commonly adopted pattern due to its compatibility with the
 
 ## FallaciesView.swift
 
-- `@State private var isLoggedOut = false`: Tracks logout state.
+- `@State private var isRenaming = false`: Presents the name entry screen.
 - `@StateObject var stateModel = StateModel()`: Manages view state.
 
 ### Body
 
 - **Greeting and High Score Display:**
   - Displays personalized greeting and user's best score using `stateModel`.
-  - Enhances user engagement.
+  - The greeting is a button: tapping it reopens WelcomeView to set or change the name.
 
 - **CoverFlowMenu:**
   - Presents a visually appealing and interactive CoverFlowMenu.
@@ -137,12 +135,6 @@ In SwiftUI, MVVM is a commonly adopted pattern due to its compatibility with the
 - **Navigation Links:**
   - Provides NavigationLinks for Flash Cards and Critical Quiz sections.
   - Clear calls-to-action for seamless transitions.
-
-- **Logout Button:**
-  - Implements Logout button with `AuthenticationManager` integration.
-
-- **NavigationLink to ContentView:**
-  - Includes NavigationLink to ContentView when logged out.
 
 ### Navigation and UI Styling:
 
@@ -157,8 +149,8 @@ In SwiftUI, MVVM is a commonly adopted pattern due to its compatibility with the
 - **User-Centric Design:**
   - Prioritizes user-centric approach with personalized content.
 
-- **Logout Mechanism:**
-  - Logout button triggers `AuthenticationManager` for data security.
+- **Local Account:**
+  - `LocalAccount` owns the stored name and best score; there is no sign in and no credentials on the device.
 
 ## CoverFlowMenu.swift Design Analysis
 

@@ -9,34 +9,68 @@ import Foundation
 import SwiftUI
 import Combine
 
+// One wrong answer in a run: what was asked, what was right, what was picked.
+// The run-over screen groups these by the correct fallacy.
+struct MissedQuestion: Identifiable {
+    let id = UUID()
+    let question: String
+    let correctTitle: String
+    let pickedTitle: String
+}
+
+// Why a run ended
+enum EndReason {
+    case threeStrikes   // three wrong answers
+    case timeUp         // the sixty seconds ran out
+    case finished       // every question was answered
+}
+
 // ViewModel managing the game state
 class GameManagerVM: ObservableObject {
-    
+
     // Static properties for managing game flow
     static var currentIndex = 0
     static let maxIncorrectAnswers = 3
-    
+
     // Static method to create a game model based on the given index
     static func createGameModel(index: Int) -> Quiz {
         return Quiz(currentQuestionIndex: index, quizModel: quizData[index])
     }
-    
+
+    // The FallaciesList id behind a quiz option title, so answers can be
+    // recorded per fallacy. Option titles match FallaciesList titles exactly.
+    static func fallacyId(forTitle title: String) -> Int? {
+        FallaciesList.fallacies.first(where: { $0.title == title })?.id
+    }
+
     // Published properties for observing changes
     @Published var model = GameManagerVM.createGameModel(index: GameManagerVM.currentIndex)
     var stateModel: StateModel
-    
+
     // Game-related variables
-    var score = 0
+    @Published var score = 0
     var timer = Timer()
     var maxProgress = 60
     @Published var progress = 0
     @Published var incorrectAnswers = 0
-    
+
+    // Every wrong answer of the current run, in order; cleared by resetGame
+    @Published var missed: [MissedQuestion] = []
+
+    // Set wherever the run ends; nil while a run is in progress
+    @Published var endReason: EndReason?
+
+    // Seconds elapsed when the run ended, captured before the timer resets
+    @Published private(set) var secondsAtEnd = 0
+
+    // Seconds left in the run: the timer counts progress up from zero
+    var secondsLeft: Int { maxProgress - progress }
+
     // Initialization with a StateModel instance
     init(stateModel: StateModel) {
         self.stateModel = stateModel
     }
-    
+
     // Method to verify the selected answer
     func verifyAnswer(selectedOption: QuizOption) {
         // Reset all options' state
@@ -44,32 +78,60 @@ class GameManagerVM: ObservableObject {
             model.quizModel.optionsList[index].isMatched = false
             model.quizModel.optionsList[index].isSelected = false
         }
-        
+
         // Check the selected answer
         if let index = model.quizModel.optionsList.firstIndex(where: { $0.optionId == selectedOption.optionId }) {
-            if selectedOption.optionId == model.quizModel.answer {
+            let correct = selectedOption.optionId == model.quizModel.answer
+            recordAnswer(correct: correct)
+
+            if correct {
                 // If correct, update score and move to the next question
                 model.quizModel.optionsList[index].isMatched = true
                 model.quizModel.optionsList[index].isSelected = true
                 score += 1
                 saveHighScore()
-                
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     GameManagerVM.currentIndex += 1
-                    if GameManagerVM.currentIndex < GameManagerVM.quizData.count - 1 {
+                    if GameManagerVM.currentIndex < GameManagerVM.quizData.count {
                         self.model = GameManagerVM.createGameModel(index: GameManagerVM.currentIndex)
                     } else {
-                        self.model.quizCompleted = true
-                        self.reset()
+                        self.endRun(.finished)
                     }
                 }
             } else {
                 // If incorrect, handle the incorrect answer
                 model.quizModel.optionsList[index].isMatched = false
                 model.quizModel.optionsList[index].isSelected = true
+                missed.append(MissedQuestion(question: model.quizModel.question,
+                                             correctTitle: correctOptionTitle,
+                                             pickedTitle: selectedOption.option))
                 handleIncorrectAnswer()
             }
         }
+    }
+
+    // The title of the correct option for the current question
+    private var correctOptionTitle: String {
+        model.quizModel.optionsList.first(where: { $0.optionId == model.quizModel.answer })?.option ?? ""
+    }
+
+    // Record the answer against the fallacy the question was about. The
+    // store is main-actor bound; answers arrive from a button on the main
+    // thread, so the hop is immediate.
+    private func recordAnswer(correct: Bool) {
+        guard let fallacyId = GameManagerVM.fallacyId(forTitle: correctOptionTitle) else { return }
+        Task { @MainActor in
+            ProgressStore.shared.recordQuizAnswer(fallacyId: fallacyId, correct: correct)
+        }
+    }
+
+    // End the run: remember why and when, then stop the clock
+    private func endRun(_ reason: EndReason) {
+        secondsAtEnd = progress
+        endReason = reason
+        model.quizCompleted = true
+        reset()
     }
     
     // Method to handle incorrect answers
@@ -79,8 +141,7 @@ class GameManagerVM: ObservableObject {
         if incorrectAnswers == GameManagerVM.maxIncorrectAnswers {
             // End the game if the user answers three questions wrong
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.model.quizCompleted = true
-                self.reset()
+                self.endRun(.threeStrikes)
                 self.saveHighScore()
             }
         } else {
@@ -89,28 +150,34 @@ class GameManagerVM: ObservableObject {
                 if GameManagerVM.currentIndex < GameManagerVM.quizData.count - 1 {
                     GameManagerVM.currentIndex += 1
                     self.model = GameManagerVM.createGameModel(index: GameManagerVM.currentIndex)
+                } else {
+                    // That was the last question
+                    self.endRun(.finished)
                 }
             }
         }
     }
-    
+
     // Method to reset the game state
     func resetGame() {
         timer.invalidate()
         progress = 0
         incorrectAnswers = 0
         score = 0
+        missed = []
+        endReason = nil
+        secondsAtEnd = 0
         GameManagerVM.currentIndex = 0
-        
+
         model = GameManagerVM.createGameModel(index: GameManagerVM.currentIndex)
     }
-    
+
     // Method to start the game timer
     func start() {
+        timer.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { time in
             if self.progress == self.maxProgress {
-                self.model.quizCompleted = true
-                self.reset()
+                self.endRun(.timeUp)
             } else {
                 self.progress += 1
             }
@@ -125,18 +192,38 @@ class GameManagerVM: ObservableObject {
     
     // Method to save the high score
     fileprivate func saveHighScore() {
-        if let highestScore = AuthenticationManager.shared.currentLoggedInUser?.highestScore {
-            if self.score > highestScore {
-                AuthenticationManager.shared.saveHighScore(self.score)
-                stateModel.currentUserHighScore = score
-            }
-        }
+        // The state model keeps the score only when it beats the current best
+        stateModel.recordScore(self.score)
     }
 }
 
+#if DEBUG
+// MARK: - Screenshot seed
+// A finished run for the run-over screenshot (`-xeidScreen runover`): score
+// 11, three strikes at 47 seconds, Equivocation missed twice and Red Herring
+// once. Debug builds only; none of this exists in release.
+extension GameManagerVM {
+    static func debugRunOver(stateModel: StateModel = StateModel()) -> GameManagerVM {
+        let vm = GameManagerVM(stateModel: stateModel)
+        vm.score = 11
+        vm.incorrectAnswers = 3
+        vm.progress = 47
+        vm.secondsAtEnd = 47
+        vm.endReason = .threeStrikes
+        vm.model.quizCompleted = true
+        vm.missed = [
+            MissedQuestion(question: "", correctTitle: "Equivocation", pickedTitle: "Straw Man"),
+            MissedQuestion(question: "", correctTitle: "Red Herring", pickedTitle: "Tu Quoque"),
+            MissedQuestion(question: "", correctTitle: "Equivocation", pickedTitle: "Straw Man"),
+        ]
+        return vm
+    }
+}
+#endif
+
 // Extension for static quiz data
 extension GameManagerVM {
-    static var quizData: [QuizModel] {
+    static let quizData: [QuizModel] = {
         [
             // MARK: Questions Group 1:
             QuizModel(question: "Favor free college tuition? you want a lower education quality and inflated taxes.",
@@ -530,7 +617,7 @@ extension GameManagerVM {
                         QuizOption(id: 18, optionId: "D", option: "Ad Hominem")
                       ]),
         ]
-    }
+    }()
 }
 
 // All 12 fallacies:

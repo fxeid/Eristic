@@ -8,104 +8,107 @@
 import Foundation
 import SwiftUI
 
-// View displaying the grid of quiz options
+// MARK: - OptionsGridView
+// The four answers as full-width rows that share whatever height is left
+// under the question card, a hairline between each. A row is a letter badge
+// and the fallacy name. Correct: badge filled blue, row white, label 400.
+// Wrong: badge and text magenta, a 2pt magenta bar on the row's left edge.
+// verifyAnswer stays the only entry point; the feedback the model sets is
+// shown until the model moves on.
 struct OptionsGridView: View {
     // ObservedObject to observe changes in game state
     @ObservedObject var gameManagerVM: GameManagerVM
-    // Grid layout columns
-    var columns: [GridItem] = Array(repeating: GridItem(.fixed(170), spacing: 0), count: 2)
-    
+
+    private var options: [QuizOption] { gameManagerVM.model.quizModel.optionsList }
+
+    // While the feedback for an answer is showing, the rows do not take
+    // another answer for the same question
+    private var feedbackShowing: Bool { options.contains { $0.isSelected } }
+
     // Body of the view
     var body: some View {
-        // LazyVGrid for efficient grid layout
-        LazyVGrid(columns: columns, spacing: 20) {
-            ForEach(gameManagerVM.model.quizModel.optionsList) { quizOption in
-                // OptionCardView for each quiz option
-                OptionCardView(quizOption: quizOption)
-                    .onTapGesture {
-                        // Verify answer on tap
-                        gameManagerVM.verifyAnswer(selectedOption: quizOption)
-                    }
+        VStack(spacing: 0) {
+            ForEach(Array(options.enumerated()), id: \.element.optionId) { index, option in
+                Button {
+                    // Verify answer on tap
+                    gameManagerVM.verifyAnswer(selectedOption: option)
+                } label: {
+                    OptionRow(option: option, last: index == options.count - 1)
+                }
+                .buttonStyle(XeidCellButtonStyle())
+                .disabled(feedbackShowing)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
-// View representing the card for each quiz option
-struct OptionCardView : View {
-    // QuizOption instance for the option
-    var quizOption: QuizOption
-    
-    // Body of the view
+// MARK: - OptionRow
+// One answer row. Reads the press state from the cell button style and
+// shifts its background only.
+private struct OptionRow: View {
+    let option: QuizOption
+    let last: Bool
+
+    @Environment(\.xeidPressed) private var pressed
+
+    private var isCorrect: Bool { option.isSelected && option.isMatched }
+    private var isWrong: Bool { option.isSelected && !option.isMatched }
+
     var body: some View {
-        VStack {
-            // Checkmark or Xmark status image if option is matched or not
-            if (quizOption.isMatched) && (quizOption.isSelected) {
-                OptionStatusImageView(imageName: "checkmark")
-            } else if (!(quizOption.isMatched) && (quizOption.isSelected)) {
-                OptionStatusImageView(imageName: "xmark")
-            } else {
-                // Regular OptionView if not matched or selected
-                OptionView(quizOption: quizOption)
+        HStack(spacing: 18) {
+            badge
+
+            Text(option.option)
+                .xeidText(19,
+                          lineHeight: 1.25,
+                          tracking: -0.015,
+                          relativeTo: .title3)
+                .multilineTextAlignment(.leading)
+                .fixedSize(horizontal: false, vertical: true)
+
+            Spacer(minLength: 0)
+        }
+        .padding(.horizontal, 24)
+        .padding(.vertical, 12)
+        .frame(maxWidth: .infinity, minHeight: 60, maxHeight: .infinity, alignment: .leading)
+        .background(isCorrect || pressed ? XeidColor.cell : Color.clear)
+        .overlay(alignment: .leading) {
+            if isWrong {
+                Rectangle().fill(XeidColor.magenta).frame(width: 2)
             }
-        }.frame(width: 150, height: 150)
-        .background(setBackgroundColor())
-        .cornerRadius(10)
-    }
-    
-    // Set background color based on option status
-    func setBackgroundColor() -> Color {
-        if (quizOption.isMatched) && (quizOption.isSelected) {
-            return Color.green
-        } else if (!(quizOption.isMatched) && (quizOption.isSelected)) {
-            return Color.red
-        } else {
-            return Color.blue
         }
-    }
-}
-
-// View representing the content of each quiz option
-struct OptionView: View {
-    // QuizOption instance for the option
-    var quizOption: QuizOption
-    
-    // Body of the view
-    var body: some View {
-        VStack {
-            // Circle with options
-            Text(quizOption.optionId)
-                .font(.system(size: 35, weight: .regular))
-                .frame(width: 50, height: 50)
-                .background(quizOption.color.opacity(1))
-                .foregroundColor(.blue)
-                .cornerRadius(25)
-            
-            // Options square containing the circle
-            Text(quizOption.option)
-                .frame(width: 150, height: 38)
-                .truncationMode(.tail)
-                .font(.subheadline)
+        .overlay(alignment: .bottom) {
+            if !last {
+                XeidHairline()
+            }
         }
+        .contentShape(Rectangle())
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(option.optionId), \(option.option)")
+        .accessibilityValue(isCorrect ? "Correct" : isWrong ? "Wrong" : "")
+    }
+
+    // 34pt letter badge: hairline circle at rest, filled blue when correct,
+    // magenta outline when wrong
+    private var badge: some View {
+        Text(option.optionId)
+            .font(XeidFont.inter(17, relativeTo: .body))
+            .foregroundColor(isCorrect ? .white : isWrong ? XeidColor.magenta : XeidColor.secondary)
+            .lineLimit(1)
+            .minimumScaleFactor(0.7) // 17pt floors at 11.9, the HIG minimum
+            .frame(width: 34, height: 34)
+            .background(Circle().fill(isCorrect ? XeidColor.blue : Color.clear))
+            .overlay {
+                if !isCorrect {
+                    Circle().strokeBorder(isWrong ? XeidColor.magenta : XeidColor.hairline, lineWidth: 1)
+                }
+            }
     }
 }
 
-// View representing the status image for matched or unmatched options
-struct OptionStatusImageView: View {
-    // Image name for the status (checkmark or xmark)
-    var imageName: String
-    
-    // Body of the view
-    var body: some View {
-        Image(systemName: imageName)
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .padding(EdgeInsets(top: 40, leading: 40, bottom: 40, trailing: 40))
-            .foregroundColor(Color.white)
-    }
-}
-
-// Preview for testing OptionsGridView
+// MARK: - Preview
 #Preview {
     OptionsGridView(gameManagerVM: GameManagerVM(stateModel: StateModel()))
+        .background(XeidColor.surface)
 }

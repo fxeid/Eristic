@@ -1,5 +1,5 @@
 //
-//  AuthenticationManager.swift
+//  LocalAccount.swift
 //  Eristic
 //
 //  Created by Fady A Eid on 11/25/23.
@@ -7,109 +7,119 @@
 
 import Foundation
 
-class AuthenticationManager {
+/// The one account on this device. There is no sign-in: it only remembers the
+/// player's display name and their best quiz score.
+final class LocalAccount {
     
-    static let shared = AuthenticationManager()
+    static let shared = LocalAccount()
     
     // MARK: - Properties
-    let userDefaults = UserDefaults.standard
-    let usersKey = "registeredUsers"
-    var currentLoggedInUser: UserModel?
-    private var users: [UserModel]?
+    private let userDefaults = UserDefaults.standard
+    private let encoder = JSONEncoder()
+    private let accountKey = "localAccount"
+    private let legacyUsersKey = "registeredUsers"   // storage used by the old log in screen
+    private let namePromptedKey = "didAskForName"
     
-    private init() { }
+    private var account: UserModel
     
-    // MARK: - User Registration
+    private init() {
+        account = UserModel()
+        loadAccount()
+    }
     
-    func registerUser(_ user: UserModel) -> Bool {
-        var registeredUsers = getUsers()
-        
-        // Check for empty username or password
-        guard !user.username.isEmpty && !user.password.isEmpty else {
-            return false
+    // MARK: - Display Name
+    
+    /// Optional — an empty name just means the greeting is shown without one.
+    var displayName: String {
+        get { account.displayName }
+        set {
+            account.displayName = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+            saveAccount()
         }
+    }
+    
+    /// True until the player has been asked for a name once, so the app asks on
+    /// first launch and never nags after that.
+    var shouldAskForName: Bool {
+        account.displayName.isEmpty && !userDefaults.bool(forKey: namePromptedKey)
+    }
+    
+    /// Call once the player has answered the name prompt, whether or not they gave one.
+    func markAskedForName() {
+        userDefaults.set(true, forKey: namePromptedKey)
+    }
+    
+    // MARK: - High Score
+    
+    var highestScore: Int { account.highestScore }
+    
+    /// Stores `score` only when it beats the current best.
+    /// - Returns: `true` when a new record was saved.
+    @discardableResult
+    func saveHighScore(_ score: Int) -> Bool {
+        guard score > account.highestScore else { return false }
         
-        // Check if the user already exists
-        guard !registeredUsers.contains(user) else {
-            return false
-        }
-        
-        registeredUsers.append(user)
-        saveUsers(registeredUsers)
-        currentLoggedInUser = user
-
+        account.highestScore = score
+        saveAccount()
         return true
-    }
-    
-    // MARK: - User Login
-    
-    func loginUser(_ username: String, _ password: String) -> Bool {
-        let registeredUsers = getUsers()
-        
-        // Check for empty username or password
-        guard !username.isEmpty && !password.isEmpty else {
-            return false
-        }
-        
-        // Check if the credentials are correct
-        guard registeredUsers.contains(where: { $0.username == username && $0.password == password }) else {
-            return false
-        }
-        
-        currentLoggedInUser = registeredUsers.first(where: { $0.username == username && $0.password == password })
-        users = registeredUsers
-        // Successful login
-        return true
-    }
-    
-    func getCurrentUsername() -> String? {
-        // Use guard to ensure there's a logged-in user
-        guard let loggedInUser = currentLoggedInUser else {
-            return nil
-        }
-        
-        return loggedInUser.username
-    }
-    
-    // MARK: - User Logout
-    
-    func logoutUser() {
-        currentLoggedInUser = nil
-    }
-    
-    func saveHighScore(_ score: Int) {
-        currentLoggedInUser?.highestScore = score
-        if var users, let index = users.firstIndex(where: { $0.username == currentLoggedInUser?.username && $0.password == currentLoggedInUser?.password }) {
-            users[index].highestScore = score
-            self.users = users
-            saveUsers(users)
-        }
     }
     
     // MARK: - Private Helper Methods
     
-    private func getUsers() -> [UserModel] {
-        guard let userData = userDefaults.data(forKey: usersKey) else { return [] }
-        do {
-            let users = try JSONDecoder().decode([UserModel].self, from: userData)
-            return users
-        } catch {
-            return []
+    private func loadAccount() {
+        guard let accountData = userDefaults.data(forKey: accountKey) else {
+            // Nothing stored yet: bring over the name and best score from the old
+            // username/password accounts, if this device has any.
+            if let migratedAccount = migratedLegacyAccount() {
+                account = migratedAccount
+                saveAccount()
+            }
+            
+            // Only once the migrated account is safely stored, and whether or not
+            // the migration worked, since that data held plain text passwords.
+            userDefaults.removeObject(forKey: legacyUsersKey)
+            return
         }
+        
+        guard let storedAccount = try? JSONDecoder().decode(UserModel.self, from: accountData) else {
+            // Unreadable, so play as a guest this launch rather than saving over
+            // it. The stored bytes stay put in case a later version can read them.
+            return
+        }
+        
+        account = storedAccount
     }
     
-    private func saveUsers(_ users: [UserModel]) {
+    private func migratedLegacyAccount() -> UserModel? {
+        // Mirrors only the fields worth keeping from the old UserModel. Both are
+        // optional so one incomplete record cannot fail the whole array.
+        struct LegacyUser: Decodable {
+            let username: String?
+            let highestScore: Int?
+        }
+        
+        guard let legacyData = userDefaults.data(forKey: legacyUsersKey),
+              let legacyUsers = try? JSONDecoder().decode([LegacyUser].self, from: legacyData),
+              // The best player keeps the account, so the name and the score
+              // belong to the same person.
+              let bestUser = legacyUsers.max(by: { ($0.highestScore ?? 0) < ($1.highestScore ?? 0) }) else {
+            return nil
+        }
+        
+        return UserModel(displayName: bestUser.username ?? "",
+                         highestScore: bestUser.highestScore ?? 0)
+    }
+    
+    private func saveAccount() {
         do {
-            let userData = try JSONEncoder().encode(users)
-            userDefaults.set(userData, forKey: usersKey)
+            let accountData = try encoder.encode(account)
+            userDefaults.set(accountData, forKey: accountKey)
         } catch {
             // Log the error
-            print("Error encoding users: \(error.localizedDescription)")
+            print("Error encoding local account: \(error.localizedDescription)")
             
             // Return without saving anything
             return
         }
     }
 }
-
-

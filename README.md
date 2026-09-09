@@ -12,10 +12,10 @@ Think Critical (Project Eristic) is an iOS application designed to address the t
 
 ## Main Features
 
-### User Authentication
-- Users can create usernames and passwords to track their progress in the Critical Quiz game.
-- Usernames and passwords are stored in a plist.
-- Usernames must be unique, and passwords are numeric.
+### Local Account
+- There is no sign in. The app keeps a single account on the device to track progress in the Critical Quiz game.
+- On first launch a welcome screen asks for a name, which can be skipped and changed later by tapping the greeting.
+- The name and best score are stored in UserDefaults and never leave the device.
 
 ### Detailed Fallacies
 - Utilizes the Cover Flow view for navigation.

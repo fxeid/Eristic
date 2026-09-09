@@ -7,131 +7,359 @@
 
 import SwiftUI
 
-// MARK: - Environment Values Extension
-extension EnvironmentValues {
-    var stateModel: StateModel {
-        get { self[StateModelKey.self] }
-        set { self[StateModelKey.self] = newValue }
-    }
-}
-
-// MARK: - StateModel Key
-private struct StateModelKey: EnvironmentKey {
-    static var defaultValue = StateModel()
-}
-
 // MARK: - ContentView
 struct ContentView: View {
     // MARK: Properties
-    @State private var username = ""
-    @State private var password = ""
-    @State private var highestScore = 0
-    @State private var isShowingAlert = false
-    @State private var alertMessage = ""
-    @State private var isLoggedIn = false
-    @State private var logInPressed = false
-    
+    // No log in. A brand new player is welcomed and asked for a name,
+    // everyone else goes straight into the app.
+    @State private var needsName = LocalAccount.shared.shouldAskForName
+
+    // The launch sequence plays once per cold launch. ContentView is built
+    // once per process, so this flag is enough to keep it to the one showing.
+    @State private var showLaunch = true
+
     // MARK: Body
     var body: some View {
-        NavigationView {
-            VStack {
-                VStack {
-                    // Username TextField
-                    TextField("Username", text: $username)
-                        .disableAutocorrection(true)  // Disable autocorrection
-                        .autocapitalization(.none)
-                        .font(.title2)// Disable autocapitalization
-                    Divider()
-                    
-                    // Password SecureField
-                    SecureField("Passcode", text: $password)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .keyboardType(.numberPad)
-                        .font(.title2)
-                    // Restrict to numbers and show numeric keypad
-                    Divider()
-                }.padding(.bottom, 50)
-                
-                VStack {
-                    // NavigationLink to FallaciesView
-                    NavigationLink(destination: FallaciesView(), isActive: $isLoggedIn) { EmptyView() }
-                    
-                    VStack {
-                        // Log in Button
-                        Button(action: {
-                            if username.isEmpty || password.isEmpty {
-                                showAlert(message: "No entry, no log in")
-                            } else if AuthenticationManager.shared.loginUser(username, password) {
-                                logInPressed.toggle()
-                                
-                                // Successfully logged in, wait for 1 second before navigating
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    // Navigate to FallaciesView
-                                    print("Successfully logged in!")
-                                    isLoggedIn = true
-                                }
-                                // stateModel.currentUserName = username
-                            } else {
-                                showAlert(message: "Incorrect credentials")
-                                print("Login failed. Incorrect credentials.")
-                            }
-                        }) {
-                            // Log in Button UI
-                            Text(logInPressed ? "Welcome" : "Log in")
-                                .font(.title2)
-                                .frame(maxWidth: .infinity, maxHeight: 50)
-                                .foregroundColor(Color.white)
-                                .background(logInPressed ? Color.green : Color.blue) // Change color based on isPressed
-                                .cornerRadius(10)
-                        }
-                    }
-                    
-                    // Register Button
-                    Button(action: {
-                        if username.isEmpty || password.isEmpty {
-                            showAlert(message: "It's a fallacy to try to register without entry")
-                        } else if AuthenticationManager.shared.registerUser(UserModel(username: username, password: password, highestScore: highestScore)) {
-                            
-                            isLoggedIn = AuthenticationManager.shared.loginUser(username, password)
-                            if isLoggedIn {
-                                print("Successfully registered and logged in!")
-                            } else {
-                                showAlert(message: "Registration successful, but login failed.")
-                            }
-                        } else {
-                            showAlert(message: "Username already exists.")
-                        }
-                    }) {
-                        // Register Button UI
-                        Text("Register")
-                            .font(.title2)
-                            .frame(maxWidth: .infinity, maxHeight: 50)
-                            .foregroundColor(Color.white)
-                            .background(Color.blue)
-                            .cornerRadius(10)
-                    }
-                }
-                .padding([.top, .bottom])
+        Group {
+            #if DEBUG
+            if let screen = DebugScreen.requested {
+                DebugScreenRouter(screen: screen)
+            } else {
+                launchThenApp
             }
-            .padding()
-            .alert(isPresented: $isShowingAlert) {
-                // Alert with brain emoji
-                Alert(title: Text("🧠"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
-            }
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: ReusableText(systemSymbol: "brain.fill", text: "Think Critical", font: .largeTitle, color: .blue))
+            #else
+            launchThenApp
+            #endif
         }
-        .navigationBarBackButtonHidden(true) // Hide the back button globally
     }
-    
-    // MARK: Show Alert Function
-    private func showAlert(message: String) {
-        alertMessage = message
-        isShowingAlert = true
+
+    // The app is built underneath the launch screen, so it is ready by the
+    // time the sequence hands off
+    private var launchThenApp: some View {
+        ZStack {
+            mainFlow
+
+            if showLaunch {
+                LaunchScreenView {
+                    withAnimation(.easeOut(duration: 0.35)) { showLaunch = false }
+                }
+                .transition(.opacity)
+                .zIndex(1)
+            }
+        }
+    }
+
+    // The welcome once, then the app
+    private var mainFlow: some View {
+        Group {
+            if needsName {
+                WelcomeView(
+                    mode: .welcome,
+                    currentName: "",
+                    onSave: { name in
+                        LocalAccount.shared.displayName = name
+                        finishWelcome()
+                    },
+                    onCancel: finishWelcome
+                )
+            } else {
+                RootView()
+            }
+        }
+        .animation(.easeInOut(duration: 0.25), value: needsName)
+    }
+
+    // MARK: Actions
+    private func finishWelcome() {
+        // Remember that the question was asked, so it is never asked again
+        LocalAccount.shared.markAskedForName()
+        needsName = false
     }
 }
+
+// MARK: - WelcomeView
+// Full screen name entry: the first thing a new player sees, and the same
+// screen again later if they tap their name on the home screen.
+struct WelcomeView: View {
+    enum Mode {
+        case welcome    // first launch
+        case rename     // tapped the greeting later
+    }
+
+    // MARK: Properties
+    let mode: Mode
+    let onSave: (String) -> Void
+    let onCancel: () -> Void
+
+    @State private var name: String
+    @FocusState private var isNameFocused: Bool
+
+    init(mode: Mode,
+         currentName: String,
+         onSave: @escaping (String) -> Void,
+         onCancel: @escaping () -> Void) {
+        self.mode = mode
+        self.onSave = onSave
+        self.onCancel = onCancel
+        _name = State(initialValue: currentName)
+    }
+
+    private var trimmedName: String {
+        name.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    // Welcome needs a name to continue — "Skip for now" is the way past it.
+    // Renaming may save an empty name, which clears it.
+    private var canSave: Bool {
+        mode == .rename || !trimmedName.isEmpty
+    }
+
+    // MARK: Body
+    var body: some View {
+        XeidScreen {
+            topBar
+
+            // Scrolls instead of clipping when the keyboard is up or the text is large
+            GeometryReader { proxy in
+                ScrollView {
+                    VStack(spacing: 0) {
+                        Spacer(minLength: 0)
+                        centreBlock
+                        Spacer(minLength: 0)
+                        bottomBlock
+                    }
+                    .frame(maxWidth: .infinity, minHeight: proxy.size.height)
+                }
+            }
+        }
+        .task {
+            // Waiting out the presentation transition, otherwise the focus
+            // request is dropped when this arrives as a full screen cover
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            isNameFocused = true
+        }
+    }
+
+    // MARK: Top bar
+    @ViewBuilder
+    private var topBar: some View {
+        switch mode {
+        case .welcome:
+            XeidTopBar {
+                XeidLockup()
+            }
+        case .rename:
+            XeidTopBar {
+                Button(action: onCancel) {
+                    XeidBarLabel(text: "Cancel", wide: false)
+                        .frame(minHeight: 44)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(XeidCellButtonStyle())
+            } center: {
+                XeidBarLabel(text: "On this phone only")
+            } trailing: {
+                EmptyView()
+            }
+        }
+    }
+
+    // MARK: Centre block
+    @ViewBuilder
+    private var centreBlock: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            switch mode {
+            case .welcome:
+                XeidSymbol(glyph: .welcome, size: 74, leading: true)
+
+                Text("Think Critical")
+                    .xeidDisplay()
+                    .padding(.top, 28)
+
+                Text("Learn the fallacies, then beat your best score.")
+                    .xeidBody(XeidColor.secondary)
+                    .padding(.top, 14)
+
+            case .rename:
+                Text("Your name")
+                    .xeidDisplay()
+
+                Text("Shown on the home screen with your best score.")
+                    .xeidBody(XeidColor.secondary)
+                    .padding(.top, 14)
+
+                nameField
+                    .padding(.top, 34)
+
+                Text("Leave it empty to clear the name.")
+                    .xeidFootnote()
+                    .padding(.top, 10)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 24)
+    }
+
+    // MARK: Bottom block
+    @ViewBuilder
+    private var bottomBlock: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            switch mode {
+            case .welcome:
+                XeidEyebrow(text: "What should we call you?")
+                    .padding(.bottom, 4)
+
+                nameField
+
+                Text("Kept on this device, with your best score.")
+                    .xeidFootnote()
+                    .padding(.bottom, 14)
+
+                Button("Continue", action: save)
+                    .buttonStyle(XeidPrimaryPillButtonStyle(height: 50, tracking: -0.01, fontSize: 16))
+                    .disabled(!canSave)
+
+                Button("Skip for now", action: onCancel)
+                    .buttonStyle(XeidTextButtonStyle())
+
+            case .rename:
+                Button("Save", action: save)
+                    .buttonStyle(XeidPrimaryPillButtonStyle(height: 50, tracking: -0.01, fontSize: 16))
+                    .disabled(!canSave)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 24)
+        .padding(.bottom, 22)
+    }
+
+    // MARK: Name field
+    private var nameField: some View {
+        XeidTextField(placeholder: "Your name", text: $name, isFocused: $isNameFocused)
+            .textInputAutocapitalization(.words)
+            .disableAutocorrection(true)
+            .submitLabel(.done)
+            .onSubmit(save)
+    }
+
+    // MARK: Actions
+    private func save() {
+        guard canSave else { return }
+
+        onSave(trimmedName)
+    }
+}
+
+#if DEBUG
+// MARK: - Screenshot router
+// `-xeidScreen <name>` as a launch argument shows one screen directly, inside
+// a NavigationStack, instead of the normal root, so `simctl launch` can
+// screenshot any screen without tapping through. Debug builds only; release
+// builds do not contain any of this.
+enum DebugScreen: String, CaseIterable {
+    case welcome, rename, hub, library, practice, profile, detail, flash, quiz, runover, finder, results, launch
+
+    // The screen named after the flag, if the flag is present
+    static var requested: DebugScreen? {
+        let arguments = ProcessInfo.processInfo.arguments
+        guard let flag = arguments.firstIndex(of: "-xeidScreen"),
+              arguments.indices.contains(flag + 1) else { return nil }
+        return DebugScreen(rawValue: arguments[flag + 1].lowercased())
+    }
+}
+
+struct DebugScreenRouter: View {
+    let screen: DebugScreen
+
+    // A finished run for the run-over screen, held for the view's lifetime
+    @StateObject private var runOver = GameManagerVM.debugRunOver()
+
+    // The library is pushed so it shows its back chevron, as from the hub
+    @State private var libraryPath: [DebugScreen] = [.library]
+
+    var body: some View {
+        switch screen {
+        case .launch:
+            LaunchScreenView(onFinish: { })
+        case .welcome:
+            WelcomeView(mode: .welcome, currentName: "", onSave: { _ in }, onCancel: { })
+        case .rename:
+            WelcomeView(mode: .rename, currentName: "Fady", onSave: { _ in }, onCancel: { })
+        case .hub:
+            RootView(initialTab: .hub)
+        case .practice:
+            RootView(initialTab: .practice)
+        case .profile:
+            RootView(initialTab: .you)
+        case .library:
+            NavigationStack(path: $libraryPath) {
+                XeidScreen { EmptyView() }
+                    .navigationDestination(for: DebugScreen.self) { _ in
+                        LibraryView(isRoot: false)
+                    }
+            }
+            .tint(XeidColor.ink)
+        case .detail:
+            pushed {
+                if let first = FallaciesList.fallacies.first {
+                    FallacyDetailsView(exampleFallacy: first)
+                }
+            }
+        case .flash:
+            pushed { CardsStackView() }
+        case .quiz:
+            pushed { QuizView(gameManagerVM: GameManagerVM(stateModel: StateModel())) }
+        case .runover:
+            pushed { QuizCompletedView(gameManagerVM: runOver) }
+        case .finder:
+            pushed { FallacyFinderView() }
+        case .results:
+            pushed { FallacyFinderView(debugAnalysis: DebugScreenRouter.sampleAnalysis) }
+        }
+    }
+
+    // A stack of its own, as every pushed screen has in the app
+    private func pushed<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
+        NavigationStack {
+            content()
+        }
+        .tint(XeidColor.ink)
+    }
+
+    // The results screen from the spec: its two flagged sentences, one clean
+    // sentence, and one the explicit-language filter kept from the model
+    static var sampleAnalysis: FallacyAnalysis {
+        FallacyAnalysis(sentences: [
+            AnalyzedSentence(index: 0,
+                             text: "The bond would fund repairs to the two oldest bridges in town.",
+                             label: FallacyLabel.none, why: "", analyzed: true),
+            AnalyzedSentence(index: 1,
+                             text: "Either you back the new bond or you don't care about this town.",
+                             label: .falseDilemma,
+                             why: "Two options offered as the only ones; many positions on the bond exist.",
+                             analyzed: true),
+            AnalyzedSentence(index: 2,
+                             text: "Two council members skipped the vote, so none of them take it seriously.",
+                             label: .hastyGeneralization,
+                             why: "Two absences are made to stand for the whole council.",
+                             analyzed: true),
+            AnalyzedSentence(index: 3,
+                             text: "I could murder whoever wrote this bond.",
+                             label: FallacyLabel.none, why: "", analyzed: false, skipReason: .explicit),
+        ])
+    }
+}
+#endif
 
 // MARK: - Preview
 #Preview {
     ContentView()
+}
+
+#Preview("Welcome") {
+    WelcomeView(mode: .welcome, currentName: "", onSave: { _ in }, onCancel: { })
+}
+
+#Preview("Rename") {
+    WelcomeView(mode: .rename, currentName: "Fady", onSave: { _ in }, onCancel: { })
 }
